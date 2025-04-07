@@ -2,6 +2,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import Carousel from 'react-bootstrap/Carousel';
+import bannerImage from '/banner.jpg';
+
+function CarouselFadeExample() {
+  return (
+    <Carousel fade>
+      <Carousel.Item>
+        <img src={bannerImage} alt="First slide" className="d-block w-100" />
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img src={bannerImage} alt="Second slide" className="d-block w-100" />
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img src={bannerImage} alt="Third slide" className="d-block w-100" />
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+  );
+}
+
 
 function HomePage() {
   const { isAuthenticated } = useAuth();
@@ -36,9 +69,11 @@ function HomePage() {
         </div>
       </nav>
 
+      
       {/* Hero Section with Banner */}
       <section id="inicio" className="relative">
-        <div className="absolute inset-0 z-0">
+        <CarouselFadeExample />
+        {/*<div className="absolute inset-0 z-0">
           <img 
             src="/banner.jpg" 
             alt="Biodescodificación" 
@@ -58,7 +93,7 @@ function HomePage() {
               Comienza Tu Viaje
             </a>
           </div>
-        </div>
+        </div>*/}
       </section>
 
       {/* Rest of the sections remain the same */}
@@ -131,11 +166,11 @@ function HomePage() {
               </div>
               <div className="flex items-center mb-6">
                 <Phone className="h-6 w-6 text-green-600 mr-3" />
-                <span className="text-gray-600">+54 11 1234-5678</span>
+                <span className="text-gray-600">+598 966 11764</span>
               </div>
               <div className="flex items-center">
                 <MapPin className="h-6 w-6 text-green-600 mr-3" />
-                <span className="text-gray-600">Buenos Aires, Argentina</span>
+                <span className="text-gray-600">Montevideo, Uruguay</span>
               </div>
             </div>
             <form className="space-y-6">
@@ -170,6 +205,74 @@ function HomePage() {
           </div>
         </div>
 
+      </section>
+      
+            {/* Testimonials Section */}
+      <section id="testimonios" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Testimonios de Nuestros Alumnos</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-green-50 p-8 rounded-lg relative">
+              <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
+              <div className="relative z-10">
+                <p className="text-gray-600 mb-4 italic">
+                  "El curso de biodescodificación transformó mi vida profesional. Ahora puedo ayudar a mis pacientes de una manera más profunda y significativa."
+                </p>
+                <div className="flex items-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100&h=100"
+                    alt="Ana Martínez"
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                  <div className="ml-4">
+                    <h4 className="font-semibold text-gray-900">Ana Martínez</h4>
+                    <p className="text-sm text-gray-500">Terapeuta Holística</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-50 p-8 rounded-lg relative">
+              <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
+              <div className="relative z-10">
+                <p className="text-gray-600 mb-4 italic">
+                  "La formación superó todas mis expectativas. Los profesores son excelentes y el material es muy completo. Me siento preparado para ejercer."
+                </p>
+                <div className="flex items-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100"
+                    alt="Carlos Rodríguez"
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                  <div className="ml-4">
+                    <h4 className="font-semibold text-gray-900">Carlos Rodríguez</h4>
+                    <p className="text-sm text-gray-500">Estudiante Graduado</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-50 p-8 rounded-lg relative">
+              <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
+              <div className="relative z-10">
+                <p className="text-gray-600 mb-4 italic">
+                  "Encontré mi vocación gracias a Sentir Salud. La calidad de la enseñanza y el apoyo constante hacen que todo el proceso sea enriquecedor."
+                </p>
+                <div className="flex items-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?auto=format&fit=crop&q=80&w=100&h=100"
+                    alt="Laura Sánchez"
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                  <div className="ml-4">
+                    <h4 className="font-semibold text-gray-900">Laura Sánchez</h4>
+                    <p className="text-sm text-gray-500">Terapeuta en Formación</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
