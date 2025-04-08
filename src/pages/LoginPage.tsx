@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { auth } from "../main";
 import { Leaf } from 'lucide-react';
 
 function LoginPage() {
@@ -14,11 +16,12 @@ function LoginPage() {
     e.preventDefault();
     setError('');
     
-    const success = await login(email, password);
-    if (success) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Inicio de sesión exitoso");
       navigate('/cursos');
-    } else {
-      setError('Credenciales inválidas');
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 
@@ -85,10 +88,16 @@ function LoginPage() {
               </button>
             </div>
           </form>
+          <p className="mt-4 text-center text-gray-600">
+            ¿No tienes una cuenta?{" "}
+            <Link to="/register" className="text-green-600 hover:underline">
+              Regístrate aquí
+            </Link>
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-export default LoginPage
+export default LoginPage;

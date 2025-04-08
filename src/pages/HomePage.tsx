@@ -9,31 +9,43 @@ import { db } from '../main'; // Asegúrate de importar correctamente tu configu
 
 function CarouselFadeExample() {
   return (
-    <Carousel fade>
-      <Carousel.Item>
-        <img src={bannerImage} alt="First slide" className="d-block w-100" />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img src={bannerImage} alt="Second slide" className="d-block w-100" />
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img src={bannerImage} alt="Third slide" className="d-block w-100" />
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <div className="relative">
+      <Carousel fade>
+        <Carousel.Item>
+          {/* Contenedor con gradiente aplicado */}
+          <div className="relative">
+            <img src={bannerImage} alt="First slide" className="d-block w-100" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+          </div>
+          <Carousel.Caption className="relative z-[2]">
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          {/* Contenedor con gradiente aplicado */}
+          <div className="relative">
+            <img src="banner2.jpg" alt="Second slide" className="d-block w-100" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+          </div>
+          <Carousel.Caption className="relative z-[2]">
+            <h3>Second slide label</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          {/* Contenedor con gradiente aplicado */}
+          <div className="relative">
+            <img src={bannerImage} alt="Third slide" className="d-block w-100" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+          </div>
+          <Carousel.Caption className="relative z-[2]">
+            <h3>Third slide label</h3>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+    </div>
   );
 }
 
@@ -139,23 +151,30 @@ function HomePage() {
       {/* Navigation */}
       <nav className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
+          <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <img src="/logo.png" alt="Sentir Salud Logo" className="h-12 w-12 rounded-full object-cover" />
+              <img
+                src="/logo.png"
+                alt="Sentir Salud Logo"
+                className="h-12 w-12 rounded-full object-cover"
+              />
               <span className="ml-2 text-xl font-semibold text-gray-800">Sentir Salud Capacitacion</span>
             </div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#inicio" className="text-gray-600 hover:text-green-600">Inicio</a>
-              <a href="#servicios" className="text-gray-600 hover:text-green-600">Servicios</a>
-              <a href="#cursos" className="text-gray-600 hover:text-green-600">Cursos</a>
-              <a href="#testimonios" className="text-gray-600 hover:text-green-600">Testimonios</a>
-              <a href="#contacto" className="text-gray-600 hover:text-green-600">Contacto</a>
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#inicio" className="text-gray-600 hover:text-green-600 no-underline">Inicio</a>
+              <a href="#servicios" className="text-gray-600 hover:text-green-600 no-underline">Servicios</a>
+              <a href="#cursos" className="text-gray-600 hover:text-green-600 no-underline">Cursos</a>
+              <a href="#testimonios" className="text-gray-600 hover:text-green-600 no-underline">Testimonios</a>
+              <a href="#contacto" className="text-gray-600 hover:text-green-600 no-underline">Contacto</a>
               {isAuthenticated ? (
-                <Link to="/cursos" className="text-green-600 hover:text-green-700 font-semibold">
+                <Link to="/cursos" className="text-green-600 hover:text-green-700 font-semibold no-underline">
                   Mis Cursos
                 </Link>
               ) : (
-                <Link to="/login" className="text-green-600 hover:text-green-700 font-semibold">
+                <Link
+                  to="/login"
+                  className="bg-green-600 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 transition-colors no-underline"
+                >
                   Iniciar Sesión
                 </Link>
               )}
