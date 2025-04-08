@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Carousel from 'react-bootstrap/Carousel';
 import bannerImage from '/banner.jpg';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../main'; // Asegúrate de importar correctamente tu configuración de Firebase
 
 function CarouselFadeExample() {
   return (
@@ -35,9 +37,102 @@ function CarouselFadeExample() {
   );
 }
 
+function TestimonioCard({ testimonio }) {
+  const [imgSrc, setImgSrc] = useState(testimonio.image); // Estado para manejar la URL de la imagen
+
+  return (
+    <div
+      key={testimonio.id}
+      className="bg-green-50 p-8 rounded-lg relative flex flex-col h-[350px]" // Contenedor principal
+    >
+      <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
+      <div className="relative z-10 flex flex-col flex-grow justify-between">
+        {/* Texto del testimonio */}
+        <p className="text-gray-600 mb-4 italic flex-grow flex items-center justify-center line-clamp-3">
+          {testimonio.testimonial}
+        </p>
+        {/* Imagen y datos del usuario */}
+        <div className="flex items-center">
+          <img
+            src={imgSrc} // URL de la imagen desde el estado
+            alt={testimonio.name} // Nombre del testimonio como texto alternativo
+            className="h-12 w-12 rounded-full object-cover"
+            onError={() => setImgSrc('/profilepicture.png')} // Cambiar a imagen predeterminada si falla
+          />
+          <div className="ml-4">
+            <h4 className="font-semibold text-gray-900">{testimonio.name}</h4>
+            <p className="text-sm text-gray-500">{testimonio.country}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Define el tipo de los datos de los cursos
+interface Course {
+  id: string; // El ID del documento en Firestore
+  name: string;
+  desc: string;
+  sub: string;
+}
 
 function HomePage() {
   const { isAuthenticated } = useAuth();
+  const [testimonios, setTestimonios] = useState<{ id: string; testimonial: string; image: string; name: string; country: string }[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]); // Define el estado con el tipo Course[]
+
+  useEffect(() => {
+    const fetchTestimonios = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'testimonios'));
+        const testimoniosData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          testimonial: doc.data().testimonial || '',
+          image: doc.data().image || '',
+          name: doc.data().name || '',
+          country: doc.data().country || '',
+        }));
+
+        // Filtrar los testimonios con IDs específicos
+        const filteredTestimonios = testimoniosData.filter(testimonio =>
+          ['1', '2', '3'].includes(testimonio.id) // IDs explícitos
+        );
+
+        setTestimonios(filteredTestimonios);
+      } catch (error) {
+        console.error('Error fetching testimonios:', error);
+      }
+    };
+
+    fetchTestimonios();
+  }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'proxcourses'));
+        const coursesData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        console.log("Courses Data:", coursesData); // Verifica los datos obtenidos
+
+        const filteredCourses = coursesData.filter(course =>
+          ['bio2024', 'maestriabio2023'].includes(course.id) // IDs explícitos
+        );
+
+        console.log("Filtered Courses:", filteredCourses); // Verifica los cursos filtrados
+
+        setCourses(filteredCourses);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
@@ -127,31 +222,35 @@ function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Próximos Cursos</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <Calendar className="h-8 w-8 text-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Formación en Biodescodificación</h3>
-              <p className="text-gray-600 mb-4">Curso completo de 6 meses para certificarte como terapeuta en biodescodificación.</p>
-              <div className="flex items-center text-sm text-gray-500">
-                <Users className="h-4 w-4 mr-2" />
-                <span>Cupos limitados</span>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <Calendar className="h-8 w-8 text-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Taller Intensivo de Sanación Emocional</h3>
-              <p className="text-gray-600 mb-4">Aprende técnicas prácticas para liberar emociones bloqueadas y patrones limitantes.</p>
-              <div className="flex items-center text-sm text-gray-500">
-                <Users className="h-4 w-4 mr-2" />
-                <span>Modalidad presencial y online</span>
-              </div>
-            </div>
+            {courses.length > 0 ? (
+              courses.map(course => (
+                <div key={course.id} className="bg-white p-6 rounded-lg shadow-md">
+                  <Calendar className="h-8 w-8 text-green-600 mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
+                  <p className="text-gray-600 mb-4">{course.desc}</p>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Users className="h-4 w-4 mr-2" />
+                    <span>{course.sub}</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500">No hay cursos disponibles.</p>
+            )}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
       <section id="testimonios" className="py-20 bg-white">
-        {/* ... (same content as before) ... */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Testimonios de Nuestros Alumnos</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonios.map(testimonio => (
+              <TestimonioCard key={testimonio.id} testimonio={testimonio} />
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Contact Section */}
@@ -207,74 +306,6 @@ function HomePage() {
 
       </section>
       
-            {/* Testimonials Section */}
-      <section id="testimonios" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Testimonios de Nuestros Alumnos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-green-50 p-8 rounded-lg relative">
-              <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
-              <div className="relative z-10">
-                <p className="text-gray-600 mb-4 italic">
-                  "El curso de biodescodificación transformó mi vida profesional. Ahora puedo ayudar a mis pacientes de una manera más profunda y significativa."
-                </p>
-                <div className="flex items-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100&h=100"
-                    alt="Ana Martínez"
-                    className="h-12 w-12 rounded-full object-cover"
-                  />
-                  <div className="ml-4">
-                    <h4 className="font-semibold text-gray-900">Ana Martínez</h4>
-                    <p className="text-sm text-gray-500">Terapeuta Holística</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-green-50 p-8 rounded-lg relative">
-              <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
-              <div className="relative z-10">
-                <p className="text-gray-600 mb-4 italic">
-                  "La formación superó todas mis expectativas. Los profesores son excelentes y el material es muy completo. Me siento preparado para ejercer."
-                </p>
-                <div className="flex items-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100"
-                    alt="Carlos Rodríguez"
-                    className="h-12 w-12 rounded-full object-cover"
-                  />
-                  <div className="ml-4">
-                    <h4 className="font-semibold text-gray-900">Carlos Rodríguez</h4>
-                    <p className="text-sm text-gray-500">Estudiante Graduado</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-green-50 p-8 rounded-lg relative">
-              <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
-              <div className="relative z-10">
-                <p className="text-gray-600 mb-4 italic">
-                  "Encontré mi vocación gracias a Sentir Salud. La calidad de la enseñanza y el apoyo constante hacen que todo el proceso sea enriquecedor."
-                </p>
-                <div className="flex items-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?auto=format&fit=crop&q=80&w=100&h=100"
-                    alt="Laura Sánchez"
-                    className="h-12 w-12 rounded-full object-cover"
-                  />
-                  <div className="ml-4">
-                    <h4 className="font-semibold text-gray-900">Laura Sánchez</h4>
-                    <p className="text-sm text-gray-500">Terapeuta en Formación</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -293,4 +324,4 @@ function HomePage() {
   );
 }
 
-export default HomePage
+export default HomePage;
