@@ -6,11 +6,8 @@ import CoursesPage from './pages/CoursesPage';
 import Register from "./pages/RegisterPage";
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
-
-function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
-}
+import AdminPage from "./pages/AdminPage";
+import AdminRoute from "./pages/AdminRoute";
 
 function App() {
   return (
@@ -21,11 +18,11 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/cursos"
+            path="/admin"
             element={
-              <PrivateRoute>
-                <CoursesPage />
-              </PrivateRoute>
+              <AdminRoute>
+                <AdminPage />
+              </AdminRoute>
             }
           />
         </Routes>
