@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Carousel from 'react-bootstrap/Carousel';
@@ -90,9 +90,21 @@ interface Course {
 }
 
 function HomePage() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth(); // Obtiene el estado de autenticación y el usuario
+  const navigate = useNavigate();
   const [testimonios, setTestimonios] = useState<{ id: string; testimonial: string; image: string; name: string; country: string }[]>([]);
   const [courses, setCourses] = useState<Course[]>([]); // Define el estado con el tipo Course[]
+  const [showBanner, setShowBanner] = useState(false); // Estado para mostrar/ocultar el banner
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setShowBanner(true); // Muestra el banner si el usuario está autenticado
+      const timer = setTimeout(() => {
+        setShowBanner(false); // Oculta el banner después de 5 segundos
+      }, 5000);
+      return () => clearTimeout(timer); // Limpia el temporizador al desmontar
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const fetchTestimonios = async () => {
@@ -148,6 +160,13 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+      {/* Banner de saludo */}
+      {showBanner && (
+        <div className="bg-green-600 text-white text-sm py-2 px-4 text-center animate-fade-in-down">
+          ¡Hola, {user?.displayName || 'Usuario'}! Bienvenido de nuevo 👋
+        </div>
+      )}
+
       {/* Navigation */}
       <nav className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -167,7 +186,10 @@ function HomePage() {
               <a href="#testimonios" className="text-gray-600 hover:text-green-600 no-underline">Testimonios</a>
               <a href="#contacto" className="text-gray-600 hover:text-green-600 no-underline">Contacto</a>
               {isAuthenticated ? (
-                <Link to="/cursos" className="text-green-600 hover:text-green-700 font-semibold no-underline">
+                <Link
+                  to="/miscursos"
+                  className="text-green-600 hover:text-green-700 font-semibold no-underline"
+                >
                   Mis Cursos
                 </Link>
               ) : (
@@ -187,27 +209,6 @@ function HomePage() {
       {/* Hero Section with Banner */}
       <section id="inicio" className="relative">
         <CarouselFadeExample />
-        {/*<div className="absolute inset-0 z-0">
-          <img 
-            src="/banner.jpg" 
-            alt="Biodescodificación" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Descubre el Poder de la Biodescodificación
-            </h1>
-            <p className="text-xl text-white mb-8 max-w-3xl mx-auto">
-              Formación profesional en terapias alternativas para transformar vidas a través del entendimiento profundo de la conexión mente-cuerpo.
-            </p>
-            <a href="#contacto" className="inline-block bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-green-700 transition-colors">
-              Comienza Tu Viaje
-            </a>
-          </div>
-        </div>*/}
       </section>
 
       {/* Rest of the sections remain the same */}
@@ -243,7 +244,11 @@ function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {courses.length > 0 ? (
               courses.map(course => (
-                <div key={course.id} className="bg-white p-6 rounded-lg shadow-md">
+                <div
+                  key={course.id}
+                  onClick={() => navigate(`/courses/${course.id}`)} // Redirige al hacer clic
+                  className="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer"
+                >
                   <Calendar className="h-8 w-8 text-green-600 mb-4" />
                   <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
                   <p className="text-gray-600 mb-4">{course.desc}</p>
