@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../main";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+async function loginUser(email: string, password: string) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log('Usuario autenticado:', userCredential.user);
+    return userCredential.user;
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error);
+    throw error;
+  }
+}
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -14,8 +25,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       console.log("Iniciando sesión con:", email); // Log para verificar el correo
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      const user = await loginUser(email, password);
       console.log("Usuario autenticado:", user.uid); // Log para verificar el UID
 
       // Buscar el documento del usuario en Firestore por el campo `uid`

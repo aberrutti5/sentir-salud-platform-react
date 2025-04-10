@@ -163,7 +163,7 @@ function HomePage() {
       {/* Banner de saludo */}
       {showBanner && (
         <div className="bg-green-600 text-white text-sm py-2 px-4 text-center animate-fade-in-down">
-          ¡Hola, {user?.displayName || 'Usuario'}! Bienvenido de nuevo 👋
+          ¡Hola, {user?.name || user?.displayName || 'Usuario'}! Bienvenido de nuevo 👋
         </div>
       )}
 

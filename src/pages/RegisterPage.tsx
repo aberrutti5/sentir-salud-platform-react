@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth, db } from "../main"; // Importa Firebase Auth y Firestore
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, updateDoc, increment, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 async function registerUser(email: string, password: string, name: string) {
   try {
@@ -30,8 +31,10 @@ async function registerUser(email: string, password: string, name: string) {
     });
 
     console.log("Usuario registrado y guardado en Firestore con ID:", nextId);
+    return user; // Devuelve el usuario registrado
   } catch (error) {
     console.error("Error al registrar usuario:", error);
+    throw error; // Lanza el error para manejarlo en el componente
   }
 }
 
@@ -40,14 +43,21 @@ function Register() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Estado para manejar la carga
+  const navigate = useNavigate(); // Hook para redirigir
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Activa el estado de carga
+    setError(""); // Limpia errores previos
     try {
-      await registerUser(email, password, name);
-      alert("Usuario registrado exitosamente");
+      const user = await registerUser(email, password, name);
+      console.log("Usuario registrado:", user);
+      navigate("/"); // Redirige a la página principal
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message); // Muestra el error
+    } finally {
+      setLoading(false); // Desactiva el estado de carga
     }
   };
 
@@ -63,6 +73,7 @@ function Register() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
+            disabled={loading} // Deshabilita el campo mientras carga
           />
         </div>
         <div>
@@ -72,6 +83,7 @@ function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
+            disabled={loading} // Deshabilita el campo mientras carga
           />
         </div>
         <div>
@@ -81,13 +93,19 @@ function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
+            disabled={loading} // Deshabilita el campo mientras carga
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors"
+          className={`w-full px-6 py-3 rounded-md transition-colors ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-green-600 text-white hover:bg-green-700"
+          }`}
+          disabled={loading} // Deshabilita el botón mientras carga
         >
-          Registrarse
+          {loading ? "Registrando..." : "Registrarse"}
         </button>
       </form>
     </div>

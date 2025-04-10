@@ -67,7 +67,9 @@ function CoursesPage() {
       </nav>
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Hola, {user?.displayName || 'Usuario'} 👋</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">
+          Hola, {user?.name || 'Usuario'} 👋
+        </h1>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {courses.length > 0 ? (
             courses.map((course) => (
