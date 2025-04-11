@@ -205,7 +205,6 @@ function HomePage() {
         </div>
       </nav>
 
-      
       {/* Hero Section with Banner */}
       <section id="inicio" className="relative">
         <CarouselFadeExample />
@@ -214,20 +213,47 @@ function HomePage() {
       {/* Rest of the sections remain the same */}
       {/* Services Section */}
       <section id="servicios" className="py-20 bg-white">
-        {/* ... (same content as before) ... */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nuestros Servicios</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 bg-green-50 rounded-lg">
-              <Brain className="h-12 w-12 text-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Biodescodificación</h3>
-              <p className="text-gray-600">Descubre el origen emocional de tus síntomas y transforma tu salud desde la raíz.</p>
+            {/* Primer cuadro con efecto hover */}
+            <div className="relative p-6 bg-green-50 rounded-lg cursor-pointer transition-all duration-300 hover:bg-green-600 hover:shadow-lg group">
+              {/* Flecha en la esquina superior derecha */}
+              <div className="absolute top-2 right-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-green-600 group-hover:text-white transition-colors duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+              {/* Contenido del cuadro */}
+              <div className="flex flex-col items-start">
+                <Brain className="h-12 w-12 text-green-600 mb-4 group-hover:text-white transition-colors duration-300" />
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-white transition-colors duration-300">
+                  Biodescodificación
+                </h3>
+                <p className="text-gray-600 group-hover:hidden transition-opacity duration-300">
+                  Descubre el origen emocional de tus síntomas y transforma tu salud desde la raíz.
+                </p>
+                {/* Texto adicional al hacer hover */}
+                <p className="hidden group-hover:block text-white text-lg font-semibold transition-opacity duration-300">
+                  Conoce más de qué se trata...
+                </p>
+              </div>
             </div>
+
+            {/* Segundo cuadro */}
             <div className="p-6 bg-green-50 rounded-lg">
               <Heart className="h-12 w-12 text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Terapias Holísticas</h3>
               <p className="text-gray-600">Integración de diferentes técnicas para un abordaje completo de tu bienestar.</p>
             </div>
+
+            {/* Tercer cuadro */}
             <div className="p-6 bg-green-50 rounded-lg">
               <BookOpen className="h-12 w-12 text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Formación Profesional</h3>

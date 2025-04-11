@@ -5,6 +5,7 @@ export default {
     extend: {
       animation: {
         'fade-in-up': 'fadeInUp 1s ease-out',
+        breeze: 'breeze 3s infinite linear',
       },
       keyframes: {
         fadeInUp: {
@@ -16,6 +17,10 @@ export default {
             opacity: 1,
             transform: 'translateY(0)',
           },
+        },
+        breeze: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '100% 50%' },
         },
       },
     },
