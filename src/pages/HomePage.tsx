@@ -18,7 +18,7 @@ function CarouselFadeExample() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
           <Carousel.Caption className="relative z-[2]">
-            <h3>First slide label</h3>
+            <h3>Transformando Vidas.</h3>
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -218,6 +218,7 @@ function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Primer cuadro con efecto hover */}
             <div className="relative p-6 bg-green-50 rounded-lg cursor-pointer transition-all duration-300 hover:bg-green-600 hover:shadow-lg group">
+              <Link to="/bioinfo" className="absolute inset-0 z-10"></Link> {/* Enlace que cubre todo el recuadro */}
               {/* Flecha en la esquina superior derecha */}
               <div className="absolute top-2 right-2">
                 <svg
@@ -241,7 +242,7 @@ function HomePage() {
                 </p>
                 {/* Texto adicional al hacer hover */}
                 <p className="hidden group-hover:block text-white text-lg font-semibold transition-opacity duration-300">
-                  Conoce más de qué se trata...
+                  Conoce de qué se trata.
                 </p>
               </div>
             </div>

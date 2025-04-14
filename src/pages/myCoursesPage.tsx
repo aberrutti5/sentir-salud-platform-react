@@ -6,7 +6,7 @@ import { db } from '../main';
 import { BookOpen } from 'lucide-react';
 
 function CoursesPage() {
-  const { user, logout } = useAuth(); // Obtiene el usuario autenticado y la función de logout
+  const { user, logout } = useAuth(); // Obtiene la función de logout desde el contexto
   const navigate = useNavigate();
   const [courses, setCourses] = useState<any[]>([]); // Cursos comprados
   const [loading, setLoading] = useState(true);
