@@ -29,7 +29,7 @@ function App() {
               </AdminRoute>
             }
           />
-          <Route path="/courses/:id" element={<myCoursesPage />} /> {/* Ruta dinámica */}
+          <Route path="/courses/:id" element={<CoursesPage />} /> {/* Ruta dinámica */}
         </Routes>
       </Router>
     </AuthProvider>

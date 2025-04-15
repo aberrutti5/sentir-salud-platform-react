@@ -18,7 +18,7 @@ function LoginPage() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Obtén el documento directamente por el UID
+      // Obtén el documento del usuario desde Firestore
       const userDoc = await getDoc(doc(db, "users", user.uid));
 
       if (userDoc.exists()) {
@@ -28,8 +28,12 @@ function LoginPage() {
         // Actualiza el estado global del usuario
         setUser({ uid: user.uid, ...userData });
 
-        // Navega según el rol del usuario
-        navigate(userData.role === "admin" ? "/admin" : "/");
+        // Redirige según el rol del usuario
+        if (userData.role === "admin") {
+          navigate("/admin"); // Redirige a la página de administrador
+        } else {
+          navigate("/"); // Redirige a la página principal
+        }
       } else {
         console.error("No se encontró información del usuario.");
         setError("No se encontró información del usuario.");

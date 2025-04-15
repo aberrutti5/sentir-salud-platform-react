@@ -23,7 +23,7 @@ function AdminPage() {
         const paymentsData = await Promise.all(
           paymentsSnapshot.docs.map(async (paymentDoc) => {
             const paymentData = paymentDoc.data();
-            const userRef = doc(db, "users", paymentData.uid); // Usa el UID como nombre del documento
+            const userRef = doc(db, "users", paymentDoc.id); // Usa el ID del documento como referencia
 
             let userName = "Usuario no encontrado";
             try {
@@ -33,7 +33,7 @@ function AdminPage() {
                 userName = userData.name || "Sin nombre";
               }
             } catch (error) {
-              console.error(`Error al obtener el usuario para el UID: ${paymentData.uid}`, error);
+              console.error(`Error al obtener el usuario para el UID: ${paymentDoc.id}`, error);
             }
 
             return {
@@ -54,6 +54,10 @@ function AdminPage() {
       }
     };
 
+    fetchPayments();
+  }, []);
+
+  useEffect(() => {
     const fetchActiveUsers = async () => {
       try {
         const usersRef = collection(db, "users"); // Referencia a la colección de usuarios
@@ -62,7 +66,7 @@ function AdminPage() {
         const activeUsersData = usersSnapshot.docs
           .filter((doc) => doc.data().active) // Filtra solo los usuarios activos
           .map((doc) => ({
-            uid: doc.id, // UID del usuario (ID del documento)
+            uid: doc.id, // Usa el ID del documento como UID
             name: doc.data().name || "Sin nombre", // Nombre del usuario
           }));
 
@@ -72,7 +76,6 @@ function AdminPage() {
       }
     };
 
-    fetchPayments();
     fetchActiveUsers();
   }, []);
 
