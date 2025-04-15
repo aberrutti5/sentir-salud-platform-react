@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, db } from "../main";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
-async function loginUser(email: string, password: string) {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log('Usuario autenticado:', userCredential.user);
-    return userCredential.user;
-  } catch (error) {
-    console.error('Error al iniciar sesión:', error);
-    throw error;
-  }
-}
+import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
+  const { setUser } = useAuth(); // Obtén la función para actualizar el usuario
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,26 +15,23 @@ function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log("Iniciando sesión con:", email); // Log para verificar el correo
-      const user = await loginUser(email, password);
-      console.log("Usuario autenticado:", user.uid); // Log para verificar el UID
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      // Buscar el documento del usuario en Firestore por el campo `uid`
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("uid", "==", user.uid));
-      const querySnapshot = await getDocs(q);
+      // Obtén el documento directamente por el UID
+      const userDoc = await getDoc(doc(db, "users", user.uid));
 
-      if (!querySnapshot.empty) {
-        const userDoc = querySnapshot.docs[0];
-        const role = userDoc.data()?.role;
-        console.log("Rol del usuario:", role); // Log para verificar el rol
-        if (role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        console.log("Usuario autenticado:", userData);
+
+        // Actualiza el estado global del usuario
+        setUser({ uid: user.uid, ...userData });
+
+        // Navega según el rol del usuario
+        navigate(userData.role === "admin" ? "/admin" : "/");
       } else {
-        console.log("El documento del usuario no existe.");
+        console.error("No se encontró información del usuario.");
         setError("No se encontró información del usuario.");
       }
     } catch (err: any) {

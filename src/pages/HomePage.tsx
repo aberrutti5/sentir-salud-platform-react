@@ -4,7 +4,7 @@ import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quo
 import { useAuth } from '../context/AuthContext';
 import Carousel from 'react-bootstrap/Carousel';
 import bannerImage from '/banner.jpg';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import { db } from '../main'; // Asegúrate de importar correctamente tu configuración de Firebase
 
 function CarouselFadeExample() {
@@ -157,6 +157,25 @@ function HomePage() {
 
     fetchCourses();
   }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          console.log("Datos del usuario:", userData);
+        } else {
+          console.error("No se encontró información del usuario.");
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos del usuario:", error);
+      }
+    };
+
+    if (user) fetchUserData();
+  }, [user]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth, db } from "../main"; // Importa Firebase Auth y Firestore
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, updateDoc, increment, getDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 async function registerUser(email: string, password: string, name: string) {
@@ -10,27 +10,14 @@ async function registerUser(email: string, password: string, name: string) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Obtener el siguiente ID autoincremental
-    const counterRef = doc(db, "counters", "users");
-    const counterDoc = await getDoc(counterRef);
-
-    let nextId = 1; // Valor inicial si no existe el contador
-    if (counterDoc.exists()) {
-      nextId = counterDoc.data()?.lastId + 1;
-      await updateDoc(counterRef, { lastId: increment(1) });
-    } else {
-      await setDoc(counterRef, { lastId: 1 });
-    }
-
-    // Crear documento en Firestore con el ID autoincremental
-    await setDoc(doc(db, "users", nextId.toString()), {
-      uid: user.uid, // Guardar el UID generado por Firebase Authentication
+    // Crear documento en Firestore con el UID como nombre del documento
+    await setDoc(doc(db, "users", user.uid), {
       email: user.email,
       name: name,
       role: "user", // Por defecto, el rol es "user"
     });
 
-    console.log("Usuario registrado y guardado en Firestore con ID:", nextId);
+    console.log("Usuario registrado y guardado en Firestore con UID:", user.uid);
     return user; // Devuelve el usuario registrado
   } catch (error) {
     console.error("Error al registrar usuario:", error);
