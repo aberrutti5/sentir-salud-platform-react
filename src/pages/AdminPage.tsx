@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, getDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, DocumentReference, Timestamp } from "firebase/firestore";
 import { db } from "../main";
 
 function AdminPage() {
@@ -15,26 +15,34 @@ function AdminPage() {
         const paymentsData = await Promise.all(
           paymentsSnapshot.docs.map(async (paymentDoc) => {
             const paymentData = paymentDoc.data();
-            const userRef = paymentData.id; // Campo `id` es una referencia
+            const userRef = paymentData.id as DocumentReference; // Campo `id` es una referencia al documento en "users"
 
-            // Obtén los datos del usuario desde la referencia
-            const userSnapshot = await getDoc(userRef);
-
-            if (userSnapshot.exists()) {
-              const userData = userSnapshot.data();
-              return {
-                id: paymentDoc.id, // UID del alumno
-                name: userData.name || "Sin nombre", // Nombre del usuario
-                payments: paymentData.payments || [], // Array de pagos
-              };
-            } else {
-              console.error(`No se encontró el usuario para la referencia: ${userRef.path}`);
-              return {
-                id: paymentDoc.id,
-                name: "Usuario no encontrado",
-                payments: paymentData.payments || [],
-              };
+            // Obtén el nombre del usuario desde la referencia
+            let userName = "Usuario no encontrado";
+            try {
+              const userSnapshot = await getDoc(userRef);
+              if (userSnapshot.exists()) {
+                const userData = userSnapshot.data();
+                userName = userData.name || "Sin nombre";
+              }
+            } catch (error) {
+              console.error(`Error al obtener el usuario para la referencia: ${userRef.path}`, error);
             }
+
+            // Convierte el campo `nextPayment` de Timestamp a una fecha legible
+            const nextPaymentDate =
+              paymentData.nextPayment instanceof Timestamp
+                ? paymentData.nextPayment.toDate().toLocaleDateString()
+                : "N/A";
+
+            // Devuelve los datos combinados
+            return {
+              id: paymentDoc.id, // UID del alumno
+              name: userName, // Nombre del usuario
+              nextPayment: nextPaymentDate, // Próximo pago (formateado)
+              remainingPayments: paymentData.remainingPayments || 0, // Cuotas restantes
+              payments: paymentData.payments || [], // Array de pagos
+            };
           })
         );
 
@@ -66,20 +74,17 @@ function AdminPage() {
           </thead>
           <tbody>
             {payments.map((payment) => {
-              // Calcula el próximo pago y las cuotas restantes
-              const nextPayment = payment.payments.find((p: any) => p.status === "pending");
-              const remainingPayments = payment.payments.filter((p: any) => p.status === "pending").length;
+              // Calcula el estado del pago
+              const nextPayment = payment.nextPayment;
+              const remainingPayments = payment.remainingPayments;
+              const paymentStatus = remainingPayments > 0 ? "Pendiente" : "Al día";
 
               return (
                 <tr key={payment.id} className="border-t">
                   <td className="px-6 py-4 text-sm text-gray-800">{payment.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">
-                    {nextPayment ? nextPayment.date : "N/A"}
-                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800">{nextPayment}</td>
                   <td className="px-6 py-4 text-sm text-gray-800">{remainingPayments}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">
-                    {remainingPayments > 0 ? "Pendiente" : "Al día"}
-                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800">{paymentStatus}</td>
                 </tr>
               );
             })}
