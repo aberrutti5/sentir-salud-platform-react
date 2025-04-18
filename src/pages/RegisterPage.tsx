@@ -17,6 +17,15 @@ async function registerUser(email: string, password: string, name: string) {
       role: "user", // Por defecto, el rol es "user"
     });
 
+    // Crear documento en base de datos de pagos
+    await setDoc(doc(db, "collectionPayments", user.uid), {
+      uid: user.uid,
+      name: doc(db, "users", user.uid), // Referencia al campo name de la colección users
+      payments: [], // Inicializa el array de pagos
+      modalidad: "", // Inicializa la modalidad
+      //nextPayment: null, // Inicializa el próximo pago
+    });
+
     console.log("Usuario registrado y guardado en Firestore con UID:", user.uid);
     return user; // Devuelve el usuario registrado
   } catch (error) {

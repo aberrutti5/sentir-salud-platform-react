@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import './index.css';
@@ -11,13 +11,15 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container!); // Usa createRoot en lugar de ReactDOM.render
+
+root.render(
   <React.StrictMode>
     <AuthProvider>
       <App />
     </AuthProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // Your web app's Firebase configuration

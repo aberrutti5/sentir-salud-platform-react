@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../main";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -32,8 +32,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
+  const logout = async () => {
+    try {
+      await signOut(auth); // Cierra la sesión en Firebase Authentication
+      setUser(null); // Limpia el estado del usuario
+      setIsAuthenticated(false); // Actualiza el estado de autenticación
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, isAuthenticated, loading }}>
+    <AuthContext.Provider value={{ user, setUser, isAuthenticated, loading, logout }}>
       {children}
     </AuthContext.Provider>
   );

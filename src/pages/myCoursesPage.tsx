@@ -12,8 +12,12 @@ function CoursesPage() {
   const [loading, setLoading] = useState(true);
 
   const handleLogout = async () => {
-    await logout(); // Llama a la función de logout
-    navigate("/login"); // Redirige al usuario después de cerrar sesión
+    try {
+      await logout(); // Llama a la función de logout del contexto
+      navigate("/login"); // Redirige al usuario después de cerrar sesión
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
   };
 
   useEffect(() => {

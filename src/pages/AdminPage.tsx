@@ -13,6 +13,8 @@ function AdminPage() {
     status: "pending",
   }); // Estado para el formulario
   const [activeUsers, setActiveUsers] = useState<any[]>([]); // Estado para almacenar los alumnos activos
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
+  const [filteredUsers, setFilteredUsers] = useState<any[]>([]); // Estado para los usuarios filtrados
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -23,34 +25,36 @@ function AdminPage() {
         const paymentsData = await Promise.all(
           paymentsSnapshot.docs.map(async (paymentDoc) => {
             const paymentData = paymentDoc.data();
-            const userRef = doc(db, "users", paymentDoc.id); // Usa el ID del documento como referencia
 
             let userName = "Usuario no encontrado";
-            try {
-              const userSnapshot = await getDoc(userRef);
-              if (userSnapshot.exists()) {
-                const userData = userSnapshot.data();
-                userName = userData.name || "Sin nombre";
+            if (paymentData.name instanceof Object) {
+              try {
+                const userSnapshot = await getDoc(paymentData.name);
+                if (userSnapshot.exists()) {
+                  userName = userSnapshot.data().name || "Sin nombre";
+                }
+              } catch (error) {
+                console.error("Error al resolver la referencia de `name`:", error);
               }
-            } catch (error) {
-              console.error(`Error al obtener el usuario para el UID: ${paymentDoc.id}`, error);
+            } else {
+              userName = paymentData.name || "Sin nombre";
             }
 
             return {
               id: paymentDoc.id,
               name: userName,
-              nextPayment: paymentData.nextPayment || "N/A",
-              remainingPayments: paymentData.remainingPayments || 0,
               payments: paymentData.payments || [],
+              nextPayment: paymentData.nextPayment || null,
             };
           })
         );
 
+        console.log("Datos de pagos:", paymentsData); // Depuración
         setPayments(paymentsData);
       } catch (error) {
-        console.error("Error al obtener los datos:", error);
+        console.error("Error al obtener los datos de pagos:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Asegúrate de que `loading` se actualice
       }
     };
 
@@ -58,40 +62,67 @@ function AdminPage() {
   }, []);
 
   useEffect(() => {
-    const fetchActiveUsers = async () => {
+    const fetchUsers = async () => {
       try {
-        const usersRef = collection(db, "users"); // Referencia a la colección de usuarios
+        const usersRef = collection(db, "collectionPayments");
         const usersSnapshot = await getDocs(usersRef);
 
-        const activeUsersData = usersSnapshot.docs
-          .filter((doc) => doc.data().active) // Filtra solo los usuarios activos
-          .map((doc) => ({
-            uid: doc.id, // Usa el ID del documento como UID
-            name: doc.data().name || "Sin nombre", // Nombre del usuario
-          }));
+        const usersData = await Promise.all(
+          usersSnapshot.docs.map(async (doc) => {
+            const userData = doc.data();
+            let userName = "Sin nombre";
 
-        setActiveUsers(activeUsersData);
+            if (userData.name instanceof Object) {
+              try {
+                const userSnapshot = await getDoc(userData.name);
+                if (userSnapshot.exists()) {
+                  userName = userSnapshot.data().name || "Sin nombre";
+                }
+              } catch (error) {
+                console.error("Error al resolver la referencia de `name`:", error);
+              }
+            } else {
+              userName = userData.name || "Sin nombre";
+            }
+
+            return {
+              uid: doc.id,
+              name: userName,
+            };
+          })
+        );
+
+        setActiveUsers(usersData);
       } catch (error) {
-        console.error("Error al obtener los usuarios activos:", error);
+        console.error("Error al obtener los usuarios:", error);
       }
     };
 
-    fetchActiveUsers();
+    fetchUsers();
   }, []);
+
+  useEffect(() => {
+    const filtered = activeUsers.filter((user) => {
+      const userName = typeof user.name === "string" ? user.name : "";
+      return userName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setFilteredUsers(filtered);
+  }, [searchTerm, activeUsers]);
+
+  useEffect(() => {
+    console.log("Usuarios activos:", activeUsers);
+  }, [activeUsers]);
 
   const handleAddPayment = async () => {
     try {
       const { uid, amount, date, status } = formData;
 
-      // Construye la referencia al documento del usuario en "users"
-      const userRef = doc(db, "users", uid);
-
-      // Verifica si el alumno ya existe en "collectionPayments"
+      // Construye la referencia al documento del usuario en "collectionPayments"
       const paymentRef = doc(db, "collectionPayments", uid);
       const paymentSnapshot = await getDoc(paymentRef);
 
       if (paymentSnapshot.exists()) {
-        // Si el alumno ya existe, agrega un nuevo pago al array `payments`
+        // Si el documento ya existe, agrega un nuevo pago al array `payments`
         const existingData = paymentSnapshot.data();
         const updatedPayments = [
           ...(existingData.payments || []),
@@ -99,27 +130,25 @@ function AdminPage() {
         ];
 
         await updateDoc(paymentRef, {
-          id: userRef, // Guarda la referencia al documento en "users"
-          payments: updatedPayments,
-          nextPayment: new Date(date), // Actualiza el próximo pago
+          payments: updatedPayments, // Actualiza el array de pagos
+          nextPayment: new Date(date), // Actualiza la fecha del próximo pago
         });
       } else {
-        // Si el alumno no existe, crea un nuevo documento
+        // Si el documento no existe, crea uno nuevo con el primer pago
         await setDoc(paymentRef, {
-          id: userRef, // Guarda la referencia al documento en "users"
-          uid, // Agrega el campo `uid`
-          nextPayment: new Date(date),
-          payments: [{ amount, date: new Date(date), status }],
-          remainingPayments: 1, // Inicializa con 1 cuota restante
+          uid, // ID del usuario
+          payments: [{ amount, date: new Date(date), status }], // Inicializa el array de pagos
+          nextPayment: new Date(date), // Establece la fecha del próximo pago
         });
       }
 
-      // Actualiza la tabla
+      // Actualiza la tabla y cierra el modal
       setShowModal(false);
       setFormData({ uid: "", amount: 0, date: "", status: "pending" });
       alert("Pago agregado correctamente.");
     } catch (error) {
       console.error("Error al agregar el pago:", error);
+      alert("Hubo un error al agregar el pago. Por favor, inténtalo de nuevo.");
     }
   };
 
@@ -130,8 +159,7 @@ function AdminPage() {
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Administración de Alumnos</h1>
       <button
         onClick={() => setShowModal(true)}
-        className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors mb-4"
-      >
+        className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors mb-4">
         + Agregar Pago
       </button>
       <div className="overflow-x-auto">
@@ -140,25 +168,29 @@ function AdminPage() {
             <tr className="bg-gray-100">
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Nombre</th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Próximo Pago</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Cuotas Restantes</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Estado</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Cantidad de Pagos</th>
             </tr>
           </thead>
           <tbody>
-            {payments.map((payment) => {
-              const nextPayment = payment.nextPayment;
-              const remainingPayments = payment.remainingPayments;
-              const paymentStatus = remainingPayments > 0 ? "Pendiente" : "Al día";
-
-              return (
+            {payments.length > 0 ? (
+              payments.map((payment) => (
                 <tr key={payment.id} className="border-t">
                   <td className="px-6 py-4 text-sm text-gray-800">{payment.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{nextPayment}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{remainingPayments}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{paymentStatus}</td>
+                  <td className="px-6 py-4 text-sm text-gray-800">
+                    {payment.nextPayment
+                      ? new Date(payment.nextPayment.seconds * 1000).toLocaleDateString()
+                      : "N/A"}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800">{payment.payments.length}</td>
                 </tr>
-              );
-            })}
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3} className="text-center text-gray-500 py-4">
+                  No hay pagos registrados.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -166,8 +198,10 @@ function AdminPage() {
       {/* Modal para agregar pagos */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">Agregar Pago</h2>
+
+            {/* Campo para seleccionar usuario */}
             <select
               value={formData.uid}
               onChange={(e) => setFormData({ ...formData, uid: e.target.value })}
@@ -180,6 +214,8 @@ function AdminPage() {
                 </option>
               ))}
             </select>
+
+            {/* Campo para ingresar monto */}
             <input
               type="number"
               placeholder="Monto"
@@ -187,12 +223,16 @@ function AdminPage() {
               onChange={(e) => setFormData({ ...formData, amount: parseFloat(e.target.value) })}
               className="w-full mb-4 px-4 py-2 border rounded-md"
             />
+
+            {/* Campo para ingresar fecha */}
             <input
               type="date"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
               className="w-full mb-4 px-4 py-2 border rounded-md"
             />
+
+            {/* Campo para seleccionar estado */}
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
@@ -201,6 +241,8 @@ function AdminPage() {
               <option value="pending">Pendiente</option>
               <option value="paid">Pagado</option>
             </select>
+
+            {/* Botones */}
             <div className="flex justify-end">
               <button
                 onClick={() => setShowModal(false)}
