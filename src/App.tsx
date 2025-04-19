@@ -10,6 +10,7 @@ import AdminPage from "./pages/AdminPage";
 import AdminRoute from "./pages/AdminRoute";
 import CoursePage from './pages/CoursePage'; // Importa el componente de la página del curso
 import BioInfoPage from './pages/BioInfoPage';
+import BioSessionsPage from './pages/BioSessionsPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/miscursos" element={<CoursesPage />} /> {/* Ruta para Mis Cursos */}
+          <Route path="/sesionesbio" element={<BioSessionsPage />} />
           <Route path="/bioinfo" element={<BioInfoPage />}  />
           <Route
             path="/admin"
@@ -30,6 +32,7 @@ function App() {
             }
           />
           <Route path="/courses/:id" element={<CoursesPage />} /> {/* Ruta dinámica */}
+          
         </Routes>
       </Router>
     </AuthProvider>
