@@ -4,6 +4,7 @@ import BlurText from "../components/BlurText/BlurText";
 
 function BioSessionsPage() {
   const [loading, setLoading] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
 
   const packages = [
     {
@@ -51,32 +52,54 @@ function BioSessionsPage() {
     window.open('https://wa.me/+59893768645?text=Hola,%20me%20interesa%20saber%20más%20sobre%20las%20sesiones%20de%20Biodescodificación', '_blank');
   };
 
-  const createOrder = (data: any, actions: any, amount: string) => {
+  const createOrder = (data: any, actions: any, amount: string, packageName: string) => {
     return actions.order.create({
       purchase_units: [
         {
-          description: "Sesiones de Biodescodificación",
+          description: `Paquete: ${packageName}`,
+          custom_id: `package_${packageName.toLowerCase().replace(/\s+/g, '_')}`,
           amount: {
             currency_code: "USD",
             value: amount
           },
         },
       ],
+      application_context: {
+        shipping_preference: "NO_SHIPPING",
+        user_action: "PAY_NOW",
+        return_url: window.location.href,
+        cancel_url: window.location.href,
+      }
     });
   };
 
-  const onApprove = async (data: any, actions: any) => {
+  const onApprove = async (data: any, actions: any, packageId: number) => {
     setLoading(true);
+    setSelectedPackage(packageId);
     try {
       const order = await actions.order.capture();
       console.log("Pago exitoso:", order);
-      alert("¡Pago realizado con éxito! Nos pondremos en contacto contigo pronto.");
-    } catch (error) {
+      alert("¡Pago realizado con éxito! Nos pondremos en contacto contigo pronto para agendar tu sesión.");
+    } catch (error: any) {
       console.error("Error al procesar el pago:", error);
-      alert("Hubo un error al procesar el pago. Por favor, intenta nuevamente.");
+      if (error.message?.includes("Window closed")) {
+        alert("La ventana de pago se cerró. Por favor, intenta nuevamente.");
+      } else {
+        alert("Hubo un error al procesar el pago. Por favor, intenta nuevamente o contáctanos por WhatsApp.");
+      }
     } finally {
       setLoading(false);
+      setSelectedPackage(null);
     }
+  };
+
+  const onError = (err: any) => {
+    console.error("Error en PayPal:", err);
+    alert("Hubo un error con PayPal. Por favor, intenta nuevamente o contáctanos por WhatsApp.");
+  };
+
+  const onCancel = () => {
+    alert("Pago cancelado. Puedes intentar nuevamente cuando lo desees.");
   };
 
   return (
@@ -182,9 +205,10 @@ function BioSessionsPage() {
                     ))}
                   </ul>
                   <div className="space-y-4">
-                    {loading ? (
+                    {loading && selectedPackage === pkg.id ? (
                       <div className="text-center py-3">
-                        <span className="text-gray-600">Procesando pago...</span>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+                        <span className="text-gray-600 mt-2 block">Procesando pago...</span>
                       </div>
                     ) : (
                       <PayPalButtons
@@ -192,10 +216,14 @@ function BioSessionsPage() {
                         style={{ 
                           layout: "vertical",
                           shape: "rect",
-                          color: "gold"
+                          color: "gold",
+                          height: 55
                         }}
-                        createOrder={(data, actions) => createOrder(data, actions, pkg.price)}
-                        onApprove={onApprove}
+                        createOrder={(data, actions) => createOrder(data, actions, pkg.price, pkg.name)}
+                        onApprove={(data, actions) => onApprove(data, actions, pkg.id)}
+                        onError={onError}
+                        onCancel={onCancel}
+                        forceReRender={[pkg.price]}
                       />
                     )}
                   </div>
