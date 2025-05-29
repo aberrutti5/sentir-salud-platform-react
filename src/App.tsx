@@ -12,6 +12,7 @@ import AdminRoute from "./pages/AdminRoute";
 import CoursePage from './pages/CoursePage'; // Importa el componente de la página del curso
 import BioInfoPage from './pages/BioInfoPage';
 import BioSessionsPage from './pages/BioSessionsPage';
+import DLocalConfigPage from './pages/DLocalConfigPage';
 
 const paypalOptions = {
   clientId: "AZ7Xe4FST0ejsuYbo32flwIe-WEoUFXV3qaKrPZncRbrEE2RGZXgJrUgFGKGsq37m8Xr1MN5H9ExPgil", // Reemplaza esto con tu Client ID real de sandbox
@@ -40,6 +41,14 @@ function App() {
               }
             />
             <Route path="/courses/:id" element={<CoursesPage />} /> {/* Ruta dinámica */}
+            <Route
+              path="/admin/dlocal-config"
+              element={
+                <AdminRoute>
+                  <DLocalConfigPage />
+                </AdminRoute>
+              }
+            />
           </Routes>
         </Router>
       </AuthProvider>
