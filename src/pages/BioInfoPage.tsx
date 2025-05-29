@@ -34,26 +34,6 @@ function BioInfoPage() {
         </div>
       </section>
 
-      {/* Video de YouTube */}
-      <section className="py-16 bg-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Conoce Más a Través de Este Video</h2>
-          <div className="flex justify-center">
-            <div className="aspect-w-16 aspect-h-9 w-full max-w-5xl">
-              {/* Aseguramos que el iframe ocupe todo el contenedor */}
-              <iframe
-                className="rounded-lg shadow-lg w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Introducción a la Biodescodificación"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Beneficios */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +69,7 @@ function BioInfoPage() {
             Descubre cómo la Biodescodificación puede ayudarte a alcanzar un bienestar integral.
           </p>
           <a
-            href="#contacto"
+            href="/#contacto"
             className="bg-white text-green-600 font-bold px-6 py-3 rounded-md hover:bg-gray-100 transition-colors"
           >
             Contáctanos

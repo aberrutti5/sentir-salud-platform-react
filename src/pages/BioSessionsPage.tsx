@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import BlurText from "../components/BlurText/BlurText";
-import { createDLocalPayment } from "../services/dlocalService";
 import { useAuth } from "../context/AuthContext";
 
 function BioSessionsPage() {
@@ -49,65 +48,6 @@ function BioSessionsPage() {
       price: "600"
     }
   ];
-
-  const handlePayment = async (pkg: typeof packages[0]) => {
-    setLoading(true);
-    setSelectedPackage(pkg.id);
-    try {
-      const orderId = `ORDER-${Date.now()}-${pkg.id}`;
-      const paymentData = {
-        currency: "USD",
-        amount: parseFloat(pkg.price),
-        country: "UY", // Uruguay
-        order_id: orderId,
-        description: `Paquete: ${pkg.name}`,
-        success_url: `${window.location.origin}/payment-success`,
-        back_url: window.location.href,
-        notification_url: `${window.location.origin}/api/payment-notification`,
-        payer: {
-          email: user?.email,
-          name: user?.displayName
-        }
-      };
-
-      console.log('Iniciando proceso de pago con datos:', {
-        package: pkg.name,
-        amount: pkg.price,
-        orderId
-      });
-
-      const response = await createDLocalPayment(paymentData);
-      console.log("Pago creado exitosamente:", response);
-      
-      if (!response.redirect_url) {
-        throw new Error('No se recibió URL de redirección del proveedor de pagos');
-      }
-      
-      // Redirigir al usuario a la página de pago de DLocal
-      window.location.href = response.redirect_url;
-    } catch (error) {
-      console.error("Error detallado al procesar el pago:", error);
-      
-      let errorMessage = "Hubo un error al procesar el pago. Por favor, intenta nuevamente o contáctanos por WhatsApp.";
-      
-      if (error instanceof Error) {
-        if (error.message.includes("Invalid Credentials")) {
-          errorMessage = "Error de autenticación con el proveedor de pagos. Por favor, contacta al administrador.";
-        } else if (error.message.includes("Network Error")) {
-          errorMessage = "Error de conexión. Por favor, verifica tu conexión a internet e intenta nuevamente.";
-        } else if (error.message.includes("no están configuradas correctamente")) {
-          errorMessage = "Error de configuración del sistema de pagos. Por favor, contacta al administrador.";
-        } else if (error.message.includes("No se recibió URL")) {
-          errorMessage = "Error en la respuesta del proveedor de pagos. Por favor, intenta nuevamente.";
-        }
-      }
-      
-      alert(errorMessage);
-    } finally {
-      setLoading(false);
-      setSelectedPackage(null);
-    }
-  };
 
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/+59893768645?text=Hola,%20me%20interesa%20saber%20más%20sobre%20las%20sesiones%20de%20Biodescodificación', '_blank');
@@ -216,19 +156,12 @@ function BioSessionsPage() {
                     ))}
                   </ul>
                   <div className="space-y-4">
-                    {loading && selectedPackage === pkg.id ? (
-                      <div className="text-center py-3">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
-                        <span className="text-gray-600 mt-2 block">Procesando pago...</span>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => handlePayment(pkg)}
-                        className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors"
-                      >
-                        Comprar Ahora
-                      </button>
-                    )}
+                    <div
+                      role="presentation"
+                      className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors cursor-default text-center"
+                    >
+                      Comprar Ahora
+                    </div>
                   </div>
                 </div>
               </div>

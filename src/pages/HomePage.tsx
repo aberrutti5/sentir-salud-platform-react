@@ -4,7 +4,9 @@ import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quo
 import { useAuth } from '../context/AuthContext';
 import Carousel from 'react-bootstrap/Carousel';
 import bannerImage from '/banner.jpg';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import banner2Image from '/banner2.jpg';
+import banner3Image from '/banner3.jpg';
+import { collection, getDocs, getDoc, doc, addDoc } from 'firebase/firestore';
 import { db } from '../main'; // Asegúrate de importar correctamente tu configuración de Firebase
 
 function CarouselFadeExample() {
@@ -18,30 +20,30 @@ function CarouselFadeExample() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
           <Carousel.Caption className="relative z-[2]">
-            <h3>Transformando Vidas.</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h3>Transformando Vidas</h3>
+            <p>Descubre el poder de la Biodescodificación para sanar desde la raíz.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           {/* Contenedor con gradiente aplicado */}
           <div className="relative">
-            <img src="banner2.jpg" alt="Second slide" className="d-block w-100" />
+            <img src={banner2Image} alt="Second slide" className="d-block w-100" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
           <Carousel.Caption className="relative z-[2]">
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3>Formación Profesional</h3>
+            <p>Conviértete en un terapeuta holístico certificado con nuestros programas de formación.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           {/* Contenedor con gradiente aplicado */}
           <div className="relative">
-            <img src={bannerImage} alt="Third slide" className="d-block w-100" />
+            <img src={banner3Image} alt="Third slide" className="d-block w-100" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
           <Carousel.Caption className="relative z-[2]">
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            <h3>Sesiones Personalizadas</h3>
+            <p>Encuentra el equilibrio y la sanación a través de sesiones individuales de Biodescodificación.</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
@@ -87,6 +89,7 @@ interface Course {
   name: string;
   desc: string;
   sub: string;
+  link?: string;
 }
 
 function HomePage() {
@@ -95,6 +98,15 @@ function HomePage() {
   const [testimonios, setTestimonios] = useState<{ id: string; testimonial: string; image: string; name: string; country: string }[]>([]);
   const [courses, setCourses] = useState<Course[]>([]); // Define el estado con el tipo Course[]
   const [showBanner, setShowBanner] = useState(false); // Estado para mostrar/ocultar el banner
+  
+  // Estado para el formulario de contacto
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -176,6 +188,50 @@ function HomePage() {
 
     if (user) fetchUserData();
   }, [user]);
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Crear un ID único para el mensaje
+      const messageId = `contact_${Date.now()}`;
+      
+      // Agregar el mensaje como un subdocumento en la colección 'users'
+      await addDoc(collection(db, 'users'), {
+        uid: messageId,
+        name: contactForm.name,
+        email: contactForm.email,
+        message: contactForm.message,
+        type: 'contact',
+        timestamp: new Date(),
+        status: 'nuevo'
+      });
+
+      // Limpiar el formulario
+      setContactForm({
+        name: '',
+        email: '',
+        message: ''
+      });
+      setSubmitStatus('success');
+    } catch (error: any) {
+      console.error('Error al enviar el mensaje:', error);
+      setSubmitStatus('error');
+      alert('Lo sentimos, no pudimos enviar tu mensaje en este momento. Por favor, intenta más tarde o contáctanos directamente por email.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setContactForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
@@ -292,8 +348,10 @@ function HomePage() {
               courses.map(course => (
                 <div
                   key={course.id}
-                  onClick={() => navigate(`/courses/${course.id}`)} // Redirige al hacer clic
-                  className="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer"
+                  onClick={() => course.link && navigate(`/courses/${course.id}`)}
+                  className={`bg-white p-6 rounded-lg shadow-md transform transition-transform duration-200 ${
+                    course.link ? 'hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer' : ''
+                  }`}
                 >
                   <Calendar className="h-8 w-8 text-green-600 mb-4" />
                   <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
@@ -331,7 +389,7 @@ function HomePage() {
             <div>
               <div className="flex items-center mb-6">
                 <Mail className="h-6 w-6 text-green-600 mr-3" />
-                <span className="text-gray-600">info@sentirsalud.com</span>
+                <span className="text-gray-600">administracion@sentirsaludcapacitacion.com</span>
               </div>
               <div className="flex items-center mb-6">
                 <Phone className="h-6 w-6 text-green-600 mr-3" />
@@ -342,33 +400,58 @@ function HomePage() {
                 <span className="text-gray-600">Montevideo, Uruguay</span>
               </div>
             </div>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleContactSubmit}>
               <div>
                 <input
                   type="text"
+                  name="name"
+                  value={contactForm.name}
+                  onChange={handleInputChange}
                   placeholder="Nombre"
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 />
               </div>
               <div>
                 <input
                   type="email"
+                  name="email"
+                  value={contactForm.email}
+                  onChange={handleInputChange}
                   placeholder="Email"
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 />
               </div>
               <div>
                 <textarea
+                  name="message"
+                  value={contactForm.message}
+                  onChange={handleInputChange}
                   placeholder="Mensaje"
+                  required
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 ></textarea>
               </div>
+              {submitStatus === 'success' && (
+                <div className="text-green-600 text-sm">
+                  ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.
+                </div>
+              )}
+              {submitStatus === 'error' && (
+                <div className="text-red-600 text-sm">
+                  Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.
+                </div>
+              )}
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors"
+                disabled={isSubmitting}
+                className={`w-full bg-green-600 text-white px-6 py-3 rounded-md transition-colors ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'
+                }`}
               >
-                Enviar Mensaje
+                {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
             </form>
           </div>
