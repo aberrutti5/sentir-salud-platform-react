@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 import Carousel from 'react-bootstrap/Carousel';
 import bannerImage from '/banner.jpg';
 import banner2Image from '/banner2.jpg';
 import banner3Image from '/banner3.jpg';
-import { collection, getDocs, getDoc, doc, addDoc } from 'firebase/firestore';
-import { db } from '../main'; // Asegúrate de importar correctamente tu configuración de Firebase
 
 function CarouselFadeExample() {
   return (
@@ -61,26 +58,23 @@ function CarouselFadeExample() {
 }
 
 function TestimonioCard({ testimonio }) {
-  const [imgSrc, setImgSrc] = useState(testimonio.image); // Estado para manejar la URL de la imagen
+  const [imgSrc, setImgSrc] = useState(testimonio.image);
 
   return (
     <div
       key={testimonio.id}
-      className="bg-green-50 p-8 rounded-lg relative flex flex-col h-[350px]" // Contenedor principal
+      className="bg-green-50 p-8 rounded-lg relative flex flex-col h-[350px]"
     >
       <Quote className="h-8 w-8 text-green-600 absolute top-4 left-4 opacity-20" />
       <div className="relative z-10 flex flex-col flex-grow justify-between">
-        {/* Texto del testimonio */}
         <p className="text-gray-600 mb-4 italic flex-grow flex items-center justify-center line-clamp-3">
           {testimonio.testimonial}
         </p>
-        {/* Imagen y datos del usuario */}
         <div className="flex items-center">
           <img
-            src={imgSrc} // URL de la imagen desde el estado
-            alt={testimonio.name} // Nombre del testimonio como texto alternativo
+            src={imgSrc}
             className="h-12 w-12 rounded-full object-cover"
-            onError={() => setImgSrc('/profilepicture.png')} // Cambiar a imagen predeterminada si falla
+            onError={() => setImgSrc('/profilepicture.png')}
           />
           <div className="ml-4">
             <h4 className="font-semibold text-gray-900">{testimonio.name}</h4>
@@ -92,176 +86,60 @@ function TestimonioCard({ testimonio }) {
   );
 }
 
-// Define el tipo de los datos de los cursos
-interface Course {
-  id: string; // El ID del documento en Firestore
-  name: string;
-  desc: string;
-  sub: string;
-  link?: string;
-}
-
 function HomePage() {
-  const { isAuthenticated, user } = useAuth(); // Obtiene el estado de autenticación y el usuario
   const navigate = useNavigate();
-  const [testimonios, setTestimonios] = useState<{ id: string; testimonial: string; image: string; name: string; country: string }[]>([]);
-  const [courses, setCourses] = useState<Course[]>([]); // Define el estado con el tipo Course[]
-  const [showBanner, setShowBanner] = useState(false); // Estado para mostrar/ocultar el banner
-  
-  // Estado para el formulario de contacto
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setShowBanner(true); // Muestra el banner si el usuario está autenticado
-      const timer = setTimeout(() => {
-        setShowBanner(false); // Oculta el banner después de 5 segundos
-      }, 5000);
-      return () => clearTimeout(timer); // Limpia el temporizador al desmontar
+  const [testimonios] = useState([
+    {
+      id: '1',
+      testimonial: 'La Biodescodificación ha transformado mi vida completamente. Ahora entiendo mejor mis emociones y cómo afectan mi salud.',
+      image: '/testimonio1.jpg',
+      name: 'María González',
+      country: 'Uruguay'
+    },
+    {
+      id: '2',
+      testimonial: 'Los cursos son excelentes, muy bien estructurados y con un contenido de calidad. Los recomiendo totalmente.',
+      image: '/testimonio2.jpg',
+      name: 'Juan Pérez',
+      country: 'Argentina'
+    },
+    {
+      id: '3',
+      testimonial: 'Las sesiones personalizadas me han ayudado a superar bloqueos emocionales que tenía desde hace años.',
+      image: '/testimonio3.jpg',
+      name: 'Ana Martínez',
+      country: 'España'
     }
-  }, [isAuthenticated]);
+  ]);
 
-  useEffect(() => {
-    const fetchTestimonios = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'testimonios'));
-        const testimoniosData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          testimonial: doc.data().testimonial || '',
-          image: doc.data().image || '',
-          name: doc.data().name || '',
-          country: doc.data().country || '',
-        }));
-
-        // Filtrar los testimonios con IDs específicos
-        const filteredTestimonios = testimoniosData.filter(testimonio =>
-          ['1', '2', '3'].includes(testimonio.id) // IDs explícitos
-        );
-
-        setTestimonios(filteredTestimonios);
-      } catch (error) {
-        console.error('Error fetching testimonios:', error);
-      }
-    };
-
-    fetchTestimonios();
-  }, []);
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'proxcourses'));
-        const coursesData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        console.log("Courses Data:", coursesData); // Verifica los datos obtenidos
-
-        const filteredCourses = coursesData.filter(course =>
-          ['bio2024', 'maestriabio2023'].includes(course.id) // IDs explícitos
-        );
-
-        console.log("Filtered Courses:", filteredCourses); // Verifica los cursos filtrados
-
-        setCourses(filteredCourses);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      }
-    };
-
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          console.log("Datos del usuario:", userData);
-        } else {
-          console.error("No se encontró información del usuario.");
-        }
-      } catch (error) {
-        console.error("Error al obtener los datos del usuario:", error);
-      }
-    };
-
-    if (user) fetchUserData();
-  }, [user]);
-
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      // Crear un ID único para el mensaje
-      const messageId = `contact_${Date.now()}`;
-      
-      // Agregar el mensaje como un subdocumento en la colección 'users'
-      await addDoc(collection(db, 'users'), {
-        uid: messageId,
-        name: contactForm.name,
-        email: contactForm.email,
-        message: contactForm.message,
-        type: 'contact',
-        timestamp: new Date(),
-        status: 'nuevo'
-      });
-
-      // Limpiar el formulario
-      setContactForm({
-        name: '',
-        email: '',
-        message: ''
-      });
-      setSubmitStatus('success');
-    } catch (error: any) {
-      console.error('Error al enviar el mensaje:', error);
-      setSubmitStatus('error');
-      alert('Lo sentimos, no pudimos enviar tu mensaje en este momento. Por favor, intenta más tarde o contáctanos directamente por email.');
-    } finally {
-      setIsSubmitting(false);
+  const [courses] = useState([
+    {
+      id: 'bio2024',
+      name: 'Curso de Biodescodificación 2024',
+      desc: 'Aprende las bases de la Biodescodificación y cómo aplicarla en tu vida diaria.',
+      sub: 'Inicio: Marzo 2024'
+    },
+    {
+      id: 'maestriabio2023',
+      name: 'Maestría en Biodescodificación',
+      desc: 'Formación avanzada para convertirte en un profesional de la Biodescodificación.',
+      sub: 'Inicio: Abril 2024'
     }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setContactForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  ]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* Banner de saludo */}
-      {showBanner && (
-        <div className="bg-green-600 text-white text-sm py-2 px-4 text-center animate-fade-in-down">
-          ¡Hola, {user?.name || user?.displayName || 'Usuario'}! Bienvenido de nuevo 👋
-        </div>
-      )}
-
-      {/* Navigation */}
-      <nav className="bg-white shadow-md">
+    <div className="min-h-screen bg-white">
+      <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <img
-                src="/logo.png"
-                alt="Sentir Salud Logo"
-                className="h-12 w-12 rounded-full object-cover"
-              />
-              <span className="ml-2 text-xl font-semibold text-gray-800">Sentir Salud Capacitacion</span>
+              <Link to="/" className="flex-shrink-0 flex items-center">
+                <img
+                  className="h-8 w-auto"
+                  src="/logo.png"
+                  alt="Sentir Salud"
+                />
+              </Link>
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <a href="#inicio" className="text-gray-600 hover:text-green-600 no-underline">Inicio</a>
@@ -269,41 +147,27 @@ function HomePage() {
               <a href="#cursos" className="text-gray-600 hover:text-green-600 no-underline">Cursos</a>
               <a href="#testimonios" className="text-gray-600 hover:text-green-600 no-underline">Testimonios</a>
               <a href="#contacto" className="text-gray-600 hover:text-green-600 no-underline">Contacto</a>
-              {isAuthenticated ? (
-                <Link
-                  to="/miscursos"
-                  className="text-green-600 hover:text-green-700 font-semibold no-underline"
-                >
-                  Mis Cursos
-                </Link>
-              ) : (
-                <Link
-                  to="/login"
-                  className="bg-green-600 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 transition-colors no-underline"
-                >
-                  Iniciar Sesión
-                </Link>
-              )}
+              <Link
+                to="/login"
+                className="bg-green-600 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 transition-colors no-underline"
+              >
+                Iniciar Sesión
+              </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section with Banner */}
       <section id="inicio" className="relative">
         <CarouselFadeExample />
       </section>
 
-      {/* Rest of the sections remain the same */}
-      {/* Services Section */}
       <section id="servicios" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nuestros Servicios</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Primer cuadro con efecto hover */}
             <div className="relative p-6 bg-green-50 rounded-lg cursor-pointer transition-all duration-300 hover:bg-green-600 hover:shadow-lg group">
-              <Link to="/bioinfo" className="absolute inset-0 z-10"></Link> {/* Enlace que cubre todo el recuadro */}
-              {/* Flecha en la esquina superior derecha */}
+              <Link to="/bioinfo" className="absolute inset-0 z-10"></Link>
               <div className="absolute top-2 right-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -315,30 +179,26 @@ function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              {/* Contenido del cuadro */}
               <div className="flex flex-col items-start">
-                <Brain className="h-12 w-12 text-green-600 mb-4 group-hover:text-white transition-colors duration-300" />
+                <Brain className="h-12 w-12 text-green-600 mb-4" />
                 <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-white transition-colors duration-300">
                   Biodescodificación
                 </h3>
                 <p className="text-gray-600 group-hover:hidden transition-opacity duration-300">
                   Descubre el origen emocional de tus síntomas y transforma tu salud desde la raíz.
                 </p>
-                {/* Texto adicional al hacer hover */}
                 <p className="hidden group-hover:block text-white text-lg font-semibold transition-opacity duration-300">
                   Conoce de qué se trata.
                 </p>
               </div>
             </div>
 
-            {/* Segundo cuadro */}
             <div className="p-6 bg-green-50 rounded-lg">
               <Heart className="h-12 w-12 text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Terapias Holísticas</h3>
               <p className="text-gray-600">Integración de diferentes técnicas para un abordaje completo de tu bienestar.</p>
             </div>
 
-            {/* Tercer cuadro */}
             <div className="p-6 bg-green-50 rounded-lg">
               <BookOpen className="h-12 w-12 text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Formación Profesional</h3>
@@ -348,37 +208,29 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Courses Section */}
       <section id="cursos" className="py-20 bg-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Próximos Cursos</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {courses.length > 0 ? (
-              courses.map(course => (
-                <div
-                  key={course.id}
-                  onClick={() => course.link && navigate(`/courses/${course.id}`)}
-                  className={`bg-white p-6 rounded-lg shadow-md transform transition-transform duration-200 ${
-                    course.link ? 'hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer' : ''
-                  }`}
-                >
-                  <Calendar className="h-8 w-8 text-green-600 mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
-                  <p className="text-gray-600 mb-4">{course.desc}</p>
-                  <div className="flex items-center text-sm text-gray-500">
-                    <Users className="h-4 w-4 mr-2" />
-                    <span>{course.sub}</span>
-                  </div>
+            {courses.map(course => (
+              <div
+                key={course.id}
+                onClick={() => navigate(`/courses/${course.id}`)}
+                className="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer"
+              >
+                <Calendar className="h-8 w-8 text-green-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
+                <p className="text-gray-600 mb-4">{course.desc}</p>
+                <div className="flex items-center text-sm text-gray-500">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>{course.sub}</span>
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">No hay cursos disponibles.</p>
-            )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section id="testimonios" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Testimonios de Nuestros Alumnos</h2>
@@ -390,7 +242,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section id="contacto" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Contáctanos</h2>
@@ -409,79 +260,9 @@ function HomePage() {
                 <span className="text-gray-600">Montevideo, Uruguay</span>
               </div>
             </div>
-            <form className="space-y-6" onSubmit={handleContactSubmit}>
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  value={contactForm.name}
-                  onChange={handleInputChange}
-                  placeholder="Nombre"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  value={contactForm.email}
-                  onChange={handleInputChange}
-                  placeholder="Email"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
-                />
-              </div>
-              <div>
-                <textarea
-                  name="message"
-                  value={contactForm.message}
-                  onChange={handleInputChange}
-                  placeholder="Mensaje"
-                  required
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
-                ></textarea>
-              </div>
-              {submitStatus === 'success' && (
-                <div className="text-green-600 text-sm">
-                  ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.
-                </div>
-              )}
-              {submitStatus === 'error' && (
-                <div className="text-red-600 text-sm">
-                  Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.
-                </div>
-              )}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full bg-green-600 text-white px-6 py-3 rounded-md transition-colors ${
-                  isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'
-                }`}
-              >
-                {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
-              </button>
-            </form>
           </div>
         </div>
-
       </section>
-      
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center mb-4 md:mb-0">
-              <img src="/logo.png" alt="Sentir Salud Logo" className="h-8 w-8 rounded-full object-cover" />
-              <span className="ml-2 text-xl font-semibold">Sentir Salud Capacitacion</span>
-            </div>
-            <div className="text-sm text-gray-400">
-              © 2024 Sentir Salud Capacitacion. Todos los derechos reservados.
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
