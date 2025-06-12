@@ -11,39 +11,48 @@ import { db } from '../main'; // Asegúrate de importar correctamente tu configu
 
 function CarouselFadeExample() {
   return (
-    <div className="relative">
-      <Carousel fade>
+    <div className="relative w-full">
+      <Carousel fade className="w-full">
         <Carousel.Item>
-          {/* Contenedor con gradiente aplicado */}
-          <div className="relative">
-            <img src={bannerImage} alt="First slide" className="d-block w-100" />
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+            <img 
+              src={bannerImage} 
+              alt="First slide" 
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
-          <Carousel.Caption className="relative z-[2]">
-            <h3>Transformando Vidas</h3>
-            <p>Descubre el poder de la Biodescodificación para sanar desde la raíz.</p>
+          <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Transformando Vidas</h3>
+            <p className="text-sm md:text-base lg:text-lg">Descubre el poder de la Biodescodificación para sanar desde la raíz.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          {/* Contenedor con gradiente aplicado */}
-          <div className="relative">
-            <img src={banner2Image} alt="Second slide" className="d-block w-100" />
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+            <img 
+              src={banner2Image} 
+              alt="Second slide" 
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
-          <Carousel.Caption className="relative z-[2]">
-            <h3>Formación Profesional</h3>
-            <p>Conviértete en un terapeuta holístico certificado con nuestros programas de formación.</p>
+          <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Formación Profesional</h3>
+            <p className="text-sm md:text-base lg:text-lg">Conviértete en un terapeuta holístico certificado con nuestros programas de formación.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          {/* Contenedor con gradiente aplicado */}
-          <div className="relative">
-            <img src={banner3Image} alt="Third slide" className="d-block w-100" />
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+            <img 
+              src={banner3Image} 
+              alt="Third slide" 
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
           </div>
-          <Carousel.Caption className="relative z-[2]">
-            <h3>Sesiones Personalizadas</h3>
-            <p>Encuentra el equilibrio y la sanación a través de sesiones individuales de Biodescodificación.</p>
+          <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Sesiones Personalizadas</h3>
+            <p className="text-sm md:text-base lg:text-lg">Encuentra el equilibrio y la sanación a través de sesiones individuales de Biodescodificación.</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
