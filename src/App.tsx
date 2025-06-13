@@ -10,7 +10,6 @@ import AdminRoute from "./pages/AdminRoute";
 import CoursePage from './pages/CoursePage';
 import BioInfoPage from './pages/BioInfoPage';
 import BioSessionsPage from './pages/BioSessionsPage';
-import DLocalConfigPage from './pages/DLocalConfigPage';
 
 function App() {
   return (
@@ -24,7 +23,6 @@ function App() {
         <Route path="/bioinfo" element={<BioInfoPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/courses/:id" element={<CoursesPage />} />
-        <Route path="/admin/dlocal-config" element={<DLocalConfigPage />} />
       </Routes>
     </Router>
   );

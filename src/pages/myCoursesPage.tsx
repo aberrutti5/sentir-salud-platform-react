@@ -1,45 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../main";
 import { BookOpen } from "lucide-react";
 
 function CoursesPage() {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [courses, setCourses] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [courses] = useState<any[]>([]); // Los cursos ya no se obtienen de Firebase
+  const [loading] = useState(false); // La carga ya no es necesaria sin Firebase
 
-  const handleLogout = async () => {
-    try {
-      await logout(); // Llama a la función de logout del contexto
-      navigate("/login"); // Redirige al usuario después de cerrar sesión
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchPurchasedCourses = async () => {
-      try {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-
-        if (userDoc.exists()) {
-          const purchasedCourses = userDoc.data()?.purchasedCourses || [];
-          setCourses(purchasedCourses);
-        } else {
-          console.error("No se encontró información del usuario.");
-        }
-      } catch (error) {
-        console.error("Error al obtener los cursos comprados:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (user) fetchPurchasedCourses();
-  }, [user]);
+  // La función handleLogout y la lógica de usuario se eliminan ya que no hay Firebase Auth.
 
   if (loading) return <p className="text-center text-gray-600">Cargando cursos...</p>;
 
@@ -51,19 +19,14 @@ function CoursesPage() {
             <div className="flex items-center">
               <span className="ml-2 text-xl font-semibold text-gray-800">Mis Cursos</span>
             </div>
-            <button
-              onClick={handleLogout} // Usa la función handleLogout
-              className="bg-green-700 text-white font-bold px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
-            >
-              Cerrar Sesión
-            </button>
+            {/* El botón de Cerrar Sesión se elimina ya que no hay autenticación */}
           </div>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
-          Hola, {user?.name || "Usuario"} 👋
+          Hola, Usuario 👋
         </h1>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {courses.length > 0 ? (
@@ -87,7 +50,7 @@ function CoursesPage() {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">No has comprado ningún curso.</p>
+            <p className="text-center text-gray-500">No hay cursos disponibles.</p>
           )}
         </div>
       </main>

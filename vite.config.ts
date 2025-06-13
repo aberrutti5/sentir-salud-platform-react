@@ -9,12 +9,6 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api/dlocal': {
-        target: 'https://api-sbx.dlocalgo.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/dlocal/, ''),
-        secure: false,
-      }
     }
   },
 });

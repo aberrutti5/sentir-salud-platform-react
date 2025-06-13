@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { auth, db } from "../main";
-import { doc, getDoc } from "firebase/firestore";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
-  const { setUser } = useAuth(); // Obtén la función para actualizar el usuario
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,34 +9,8 @@ function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Obtén el documento del usuario desde Firestore
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        console.log("Usuario autenticado:", userData);
-
-        // Actualiza el estado global del usuario
-        setUser({ uid: user.uid, ...userData });
-
-        // Redirige según el rol del usuario
-        if (userData.role === "admin") {
-          navigate("/admin"); // Redirige a la página de administrador
-        } else {
-          navigate("/"); // Redirige a la página principal
-        }
-      } else {
-        console.error("No se encontró información del usuario.");
-        setError("No se encontró información del usuario.");
-      }
-    } catch (err: any) {
-      console.error("Error al iniciar sesión:", err);
-      setError("Error al iniciar sesión. Verifica tus credenciales.");
-    }
+    setError("La funcionalidad de inicio de sesión ha sido deshabilitada.");
+    // Lógica de inicio de sesión eliminada
   };
 
   return (
