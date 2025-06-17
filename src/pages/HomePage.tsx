@@ -180,7 +180,7 @@ function HomePage() {
                 </svg>
               </div>
               <div className="flex flex-col items-start">
-                <Brain className="h-12 w-12 text-green-600 mb-4" />
+                <Brain className="h-12 w-12 text-green-600 group-hover:text-white transition-colors duration-300 mb-4" />
                 <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-white transition-colors duration-300">
                   Biodescodificación
                 </h3>
