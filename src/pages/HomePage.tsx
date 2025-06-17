@@ -68,7 +68,7 @@ function CarouselFadeExample() {
                     <img 
                       src={slide.image_url} 
                       alt={slide.title} 
-                      className={`w-full h-full ${slide.mobile_image_url ? 'object-contain' : 'object-cover'} lg:object-contain`}
+                      className="w-full h-full object-cover lg:object-contain"
                     />
                   </picture>
                   {slide.show_overlay !== false && (
@@ -90,7 +90,7 @@ function CarouselFadeExample() {
                     <img 
                       src={slide.image_url} 
                       alt={slide.title} 
-                      className={`w-full h-full ${slide.mobile_image_url ? 'object-contain' : 'object-cover'} lg:object-contain`}
+                      className="w-full h-full object-cover lg:object-contain"
                     />
                   </picture>
                   {slide.show_overlay !== false && (
