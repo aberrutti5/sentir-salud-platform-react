@@ -13,4 +13,5 @@ export interface CarouselSlide {
   orden: number;
   show_overlay?: boolean;
   link?: string;
+  mobile_image_url?: string;
 } 

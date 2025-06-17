@@ -61,11 +61,16 @@ function CarouselFadeExample() {
             {slide.link ? (
               <a href={slide.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
                 <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
-                  <img 
-                    src={slide.image_url} 
-                    alt={slide.title} 
-                    className="w-full h-full object-cover lg:object-contain"
-                  />
+                  <picture>
+                    {slide.mobile_image_url && (
+                      <source media="(max-width: 1023px)" srcSet={slide.mobile_image_url} />
+                    )}
+                    <img 
+                      src={slide.image_url} 
+                      alt={slide.title} 
+                      className={`w-full h-full ${slide.mobile_image_url ? 'object-contain' : 'object-cover'} lg:object-contain`}
+                    />
+                  </picture>
                   {slide.show_overlay !== false && (
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
                   )}
@@ -78,11 +83,16 @@ function CarouselFadeExample() {
             ) : (
               <>
                 <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
-                  <img 
-                    src={slide.image_url} 
-                    alt={slide.title} 
-                    className="w-full h-full object-cover lg:object-contain"
-                  />
+                  <picture>
+                    {slide.mobile_image_url && (
+                      <source media="(max-width: 1023px)" srcSet={slide.mobile_image_url} />
+                    )}
+                    <img 
+                      src={slide.image_url} 
+                      alt={slide.title} 
+                      className={`w-full h-full ${slide.mobile_image_url ? 'object-contain' : 'object-cover'} lg:object-contain`}
+                    />
+                  </picture>
                   {slide.show_overlay !== false && (
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
                   )}
