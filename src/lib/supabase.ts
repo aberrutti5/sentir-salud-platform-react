@@ -11,4 +11,6 @@ export interface CarouselSlide {
   subtitle?: string;
   image_url: string;
   orden: number;
+  show_overlay?: boolean;
+  link?: string;
 } 

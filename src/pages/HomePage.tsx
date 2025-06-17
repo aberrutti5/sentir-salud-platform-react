@@ -57,19 +57,42 @@ function CarouselFadeExample() {
     <div className="relative w-full">
       <Carousel fade className="w-full">
         {slides.map((slide) => (
-          <Carousel.Item key={slide.id}>
-            <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
-              <img 
-                src={slide.image_url} 
-                alt={slide.title} 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-            </div>
-            <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
-              <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
-            </Carousel.Caption>
+          <Carousel.Item key={slide.id} className="lg:h-auto">
+            {slide.link ? (
+              <a href={slide.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
+                  <img 
+                    src={slide.image_url} 
+                    alt={slide.title} 
+                    className="w-full h-full object-cover lg:object-contain"
+                  />
+                  {slide.show_overlay !== false && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                  )}
+                </div>
+                <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
+                  <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
+                </Carousel.Caption>
+              </a>
+            ) : (
+              <>
+                <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
+                  <img 
+                    src={slide.image_url} 
+                    alt={slide.title} 
+                    className="w-full h-full object-cover lg:object-contain"
+                  />
+                  {slide.show_overlay !== false && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                  )}
+                </div>
+                <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
+                  <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
+                </Carousel.Caption>
+              </>
+            )}
           </Carousel.Item>
         ))}
       </Carousel>
