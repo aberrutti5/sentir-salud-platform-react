@@ -12,6 +12,7 @@
   "dependencies": {
     "@paypal/react-paypal-js": "^8.8.3",
     "@react-spring/web": "^9.7.5",
+    "@supabase/supabase-js": "^2.50.0",
     "bootstrap": "^5.3.5",
     "framer-motion": "^12.7.2",
     "lucide-react": "^0.344.0",

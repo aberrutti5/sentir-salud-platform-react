@@ -2,62 +2,82 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Leaf, Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote } from 'lucide-react';
 import Carousel from 'react-bootstrap/Carousel';
-import bannerImage from '/banner.jpg';
-import banner2Image from '/banner2.jpg';
-import banner3Image from '/banner3.jpg';
+import { supabase, CarouselSlide } from '../lib/supabase';
+
+interface Testimonio {
+  id: string;
+  testimonial: string;
+  image: string;
+  name: string;
+  country: string;
+}
 
 function CarouselFadeExample() {
+  const [slides, setSlides] = useState<CarouselSlide[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchSlides() {
+      try {
+        const { data, error } = await supabase
+          .from('carousel_slides')
+          .select('*')
+          .order('orden', { ascending: true });
+
+        if (error) throw error;
+        setSlides(data || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Error al cargar los slides');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSlides();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gray-100">
+        <div className="text-gray-600">Cargando...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gray-100">
+        <div className="text-red-600">Error: {error}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full">
       <Carousel fade className="w-full">
-        <Carousel.Item>
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
-            <img 
-              src={bannerImage} 
-              alt="First slide" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-          </div>
-          <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Transformando Vidas</h3>
-            <p className="text-sm md:text-base lg:text-lg">Descubre el poder de la Biodescodificación para sanar desde la raíz.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
-            <img 
-              src={banner2Image} 
-              alt="Second slide" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-          </div>
-          <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Formación Profesional</h3>
-            <p className="text-sm md:text-base lg:text-lg">Conviértete en un terapeuta holístico certificado con nuestros programas de formación.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
-            <img 
-              src={banner3Image} 
-              alt="Third slide" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-          </div>
-          <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Sesiones Personalizadas</h3>
-            <p className="text-sm md:text-base lg:text-lg">Encuentra el equilibrio y la sanación a través de sesiones individuales de Biodescodificación.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {slides.map((slide) => (
+          <Carousel.Item key={slide.id}>
+            <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+              <img 
+                src={slide.image_url} 
+                alt={slide.title} 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+            </div>
+            <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
+              <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
       </Carousel>
     </div>
   );
 }
 
-function TestimonioCard({ testimonio }) {
+function TestimonioCard({ testimonio }: { testimonio: Testimonio }) {
   const [imgSrc, setImgSrc] = useState(testimonio.image);
 
   return (
