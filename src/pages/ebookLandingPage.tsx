@@ -70,7 +70,6 @@ export default function EbookLandingPage() {
       {/* Oferta y botón de compra */}
       <section id="oferta" className="py-10 px-4 max-w-xl mx-auto text-center">
         <h2 className="text-2xl font-bold text-green-700 mb-4">¡Precio lanzamiento por tiempo limitado!</h2>
-        <p className="text-lg text-gray-800 mb-2">Incluye audio de hipnosis guiada para activar tu sanación interior.</p>
         <div className="bg-green-100 rounded-lg p-6 mb-4">
           <span className="block text-3xl font-bold text-green-700 mb-2">Solo 9 dólares</span>
           <span className="text-gray-700">Oferta válida por tiempo limitado</span>
