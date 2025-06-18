@@ -10,6 +10,8 @@ import AdminRoute from "./pages/AdminRoute";
 import CoursePage from './pages/CoursePage';
 import BioInfoPage from './pages/BioInfoPage';
 import BioSessionsPage from './pages/BioSessionsPage';
+import EbookLandingPage from './pages/ebookLandingPage';
+import GraciasEbookPage from './pages/GraciasEbookPage';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/bioinfo" element={<BioInfoPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/courses/:id" element={<CoursesPage />} />
+        <Route path="/ebook" element={<EbookLandingPage />} />
+        <Route path="/ebook/gracias" element={<GraciasEbookPage />} />
       </Routes>
     </Router>
   );
