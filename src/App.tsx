@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from "@vercel/analytics/next"
 import HomePage from './pages/HomePage';
 import Login from './pages/LoginPage';
 import CoursesPage from './pages/myCoursesPage';
@@ -12,7 +13,7 @@ import BioInfoPage from './pages/BioInfoPage';
 import BioSessionsPage from './pages/BioSessionsPage';
 import EbookLandingPage from './pages/ebookLandingPage';
 import GraciasEbookPage from './pages/GraciasEbookPage';
-import { Analytics } from "@vercel/analytics/next"
+
 
 function App() {
   return (
