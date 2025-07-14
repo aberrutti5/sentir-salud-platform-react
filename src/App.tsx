@@ -12,6 +12,7 @@ import BioInfoPage from './pages/BioInfoPage';
 import BioSessionsPage from './pages/BioSessionsPage';
 import EbookLandingPage from './pages/ebookLandingPage';
 import GraciasEbookPage from './pages/GraciasEbookPage';
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   return (
