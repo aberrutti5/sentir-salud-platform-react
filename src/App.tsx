@@ -30,6 +30,7 @@ function App() {
         <Route path="/ebook" element={<EbookLandingPage />} />
         <Route path="/ebook/gracias" element={<GraciasEbookPage />} />
       </Routes>
+      <Analytics />
     </Router>
   );
 }
