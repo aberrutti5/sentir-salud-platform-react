@@ -79,22 +79,37 @@ export default function EbookLandingPage() {
 
       {/* ¿Para quién es este ebook? y contenido */}
       <section className="py-10 px-4 max-w-3xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">¿Este ebook es para vos si...</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">💬 Este ebook es para vos si:</h2>
         <ul className="list-disc pl-6 text-lg text-gray-800 mb-6 space-y-1">
-          <li>Estás atravesando un diagnóstico o acompañás a alguien en esto.</li>
-          <li>Sentís que hay un mensaje detrás del síntoma o querés comprenderlo.</li>
-          <li>Buscás herramientas prácticas de sanación emocional.</li>
-          <li>Te interesa la Biodescodificación y la PNL como caminos de transformación.</li>
+          <li>🔹 Sentís que hiciste de todo, pero no encontrás respuestas.</li>
+          <li>🔹 Querés entender qué emoción hay detrás del síntoma.</li>
+          <li>🔹 Estás acompañando a alguien que transita la enfermedad.</li>
+          <li>🔹 O simplemente querés prevenir y vivir más libre y consciente.</li>
         </ul>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Contenido del ebook</h3>
-        <ul className="list-decimal pl-6 text-gray-800 space-y-1">
-          <li>Qué son las 5 Leyes Biológicas y cómo explican el cáncer</li>
-          <li>Cómo trabajar el cáncer desde la Biodescodificación, pnl, reimpronta y conexión con el inconsciente</li>
-          <li>Casos reales que inspiran sanación</li>
-          <li>20 Protocolos sanadores efectivos para realizar la práctica para trabajar la raíz del cáncer</li>
-          <li>Claves para acompañar el proceso emocional</li>
-          <li>Una guía transformadora al proceso emocional</li>
-        </ul>
+        <div className="bg-yellow-100 rounded-lg p-4 mb-6">
+          <p className="text-lg font-semibold mb-2">🎁 Incluye ejercicios de:</p>
+          <ul className="list-disc pl-6 text-gray-800 space-y-1">
+            <li>✔ Reconexión con el cuerpo</li>
+            <li>✔ Liberación de memorias familiares</li>
+            <li>✔ Perdón y cierre de ciclos</li>
+            <li>✔ Activación de recursos de autocuración</li>
+            <li>✔ Y mucho más...</li>
+          </ul>
+        </div>
+        <p className="text-base text-gray-800 mb-2">📌 Disponible en formato digital para todos los países de Latinoamérica.</p>
+        <p className="text-base text-gray-800 mb-6">📥 Descargalo ahora y empezá a sanar desde hoy.<br/>¿Y si tu enfermedad tiene un mensaje para vos?<br/>No es casual. Tu cuerpo no te está fallando, está gritándote lo que tu alma calla.</p>
+        <div className="bg-white/80 rounded-lg p-4 mb-6">
+          <h3 className="text-xl font-bold text-green-700 mb-2">📖 “El cáncer no es tu enemigo”</h3>
+          <p className="text-gray-800 mb-2">Un libro que ya está transformando vidas en toda Latinoamérica 🌎</p>
+          <ul className="list-disc pl-6 text-gray-800 mb-2">
+            <li>✔ Con 20 ejercicios terapéuticos que te guían a encontrar el origen emocional del cáncer y de muchas enfermedades.</li>
+            <li>✔ Para que dejes de luchar contra tu cuerpo y empieces a sanar desde adentro.</li>
+          </ul>
+          <p className="text-gray-800">🧬 Basado en la Biodescodificación, Programación Neurolingüística y más de 20 años de experiencia en acompañamiento emocional.</p>
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          {/* Enlace corto eliminado */}
+        </div>
       </section>
 
       {/* CTA final */}
