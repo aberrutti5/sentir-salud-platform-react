@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 import HomePage from './pages/HomePage';
 import Login from './pages/LoginPage';
 import CoursesPage from './pages/myCoursesPage';
@@ -18,6 +18,7 @@ import GraciasEbookPage from './pages/GraciasEbookPage';
 function App() {
   return (
     <Router>
+      <Analytics />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
