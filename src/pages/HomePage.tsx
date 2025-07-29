@@ -17,6 +17,40 @@ function CarouselFadeExample() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Slides estáticos como fallback
+  const fallbackSlides = [
+    {
+      id: '1',
+      title: 'Bienvenidos a Sentir Salud',
+      subtitle: 'Descubre el poder de la Biodescodificación',
+      image_url: '/banner.jpg',
+      mobile_image_url: '/banner.jpg',
+      link: null,
+      show_overlay: true,
+      orden: 1
+    },
+    {
+      id: '2',
+      title: 'Formación Profesional',
+      subtitle: 'Conviértete en un terapeuta holístico certificado',
+      image_url: '/banner2.jpg',
+      mobile_image_url: '/banner2.jpg',
+      link: null,
+      show_overlay: true,
+      orden: 2
+    },
+    {
+      id: '3',
+      title: 'Terapias Personalizadas',
+      subtitle: 'Acompañamiento individual para tu sanación',
+      image_url: '/banner3.jpg',
+      mobile_image_url: '/banner3.jpg',
+      link: null,
+      show_overlay: true,
+      orden: 3
+    }
+  ];
+
   useEffect(() => {
     async function fetchSlides() {
       try {
@@ -26,9 +60,10 @@ function CarouselFadeExample() {
           .order('orden', { ascending: true });
 
         if (error) throw error;
-        setSlides(data || []);
+        setSlides(data && data.length > 0 ? data : fallbackSlides);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error al cargar los slides');
+        console.log('Error cargando slides desde Supabase, usando slides estáticos:', err);
+        setSlides(fallbackSlides);
       } finally {
         setLoading(false);
       }
@@ -41,14 +76,6 @@ function CarouselFadeExample() {
     return (
       <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gray-100">
         <div className="text-gray-600">Cargando...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center bg-gray-100">
-        <div className="text-red-600">Error: {error}</div>
       </div>
     );
   }
