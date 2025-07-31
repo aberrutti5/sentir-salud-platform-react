@@ -7,7 +7,7 @@ export default function GraciasEbookPage() {
         <h1 className="text-3xl font-bold text-green-700 mb-4">¡Gracias por tu compra!</h1>
         <p className="text-lg text-gray-800 mb-6">Tu pago fue procesado con éxito.<br />Ya puedes descargar tu ebook y comenzar tu camino de sanación.</p>
         <a
-          href="https://ahmgkmoijwodldkivywd.supabase.co/storage/v1/object/sign/sentirsaludplatform1/El-cancer-no-es-tu-enemigo-Claudia%20Corbo-Sentir%20Salud.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wZGRkOTRhZi02MTViLTQ2ZTMtODBlMC1lYWY0OTcyODc1YzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzZW50aXJzYWx1ZHBsYXRmb3JtMS9FbC1jYW5jZXItbm8tZXMtdHUtZW5lbWlnby1DbGF1ZGlhIENvcmJvLVNlbnRpciBTYWx1ZC5wZGYiLCJpYXQiOjE3NTA0ODc2OTYsImV4cCI6MTg0NTA5NTY5Nn0.etxz4IkUet9vXImpuXkE3xK6efsWzMhzB6momSlctck"
+          href="https://ahmgkmoijwodldkivywd.supabase.co/storage/v1/object/sign/sentirsaludplatform1/El-cancer-no-es-tu-enemigo-Claudia%20Corbo-Sentir%20Salud.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jY2MyMGQxOC1iOWI1LTQ4ZWItYjMyNi0yN2NiYTM4ZmU0OTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzZW50aXJzYWx1ZHBsYXRmb3JtMS9FbC1jYW5jZXItbm8tZXMtdHUtZW5lbWlnby1DbGF1ZGlhIENvcmJvLVNlbnRpciBTYWx1ZC5wZGYiLCJpYXQiOjE3NTM5OTU0OTgsImV4cCI6MTg0ODYwMzQ5OH0.KuvDoGWOfafU-BMUaoilmzv0jsNoT-93vJcCS8nn5mU"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-600 text-white font-bold px-8 py-3 rounded-md text-lg shadow hover:bg-green-700 transition-colors mb-4 inline-block"
