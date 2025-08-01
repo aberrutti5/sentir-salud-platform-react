@@ -13,6 +13,7 @@ import BioInfoPage from './pages/BioInfoPage';
 import BioSessionsPage from './pages/BioSessionsPage';
 import EbookLandingPage from './pages/ebookLandingPage';
 import GraciasEbookPage from './pages/GraciasEbookPage';
+import WhatsAppButton from './components/WhatsAppButton';
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
         <Route path="/ebook" element={<EbookLandingPage />} />
         <Route path="/ebook/gracias" element={<GraciasEbookPage />} />
       </Routes>
+      <WhatsAppButton 
+        phoneNumber="59896611764" 
+        message="Hola! Vengo desde la página web de Sentir Salud, me gustaría obtener más información"
+      />
       <Analytics />
     </Router>
   );
