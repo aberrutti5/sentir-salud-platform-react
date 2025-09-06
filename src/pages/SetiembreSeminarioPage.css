@@ -488,7 +488,7 @@
 /* Notificación de esquina */
 .corner-notification {
   position: absolute;
-  top: 20px;
+  top: 30px;
   left: 1.5rem;
   z-index: 10;
 }
@@ -574,7 +574,7 @@
 /* Responsive para la notificación de esquina */
 @media (max-width: 768px) {
   .corner-notification {
-    top: 15px;
+    top: 25px;
     left: 0.8rem;
   }
   
@@ -614,7 +614,7 @@
 
 @media (max-width: 480px) {
   .corner-notification {
-    top: 10px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
   }
