@@ -9,15 +9,15 @@ const SetiembreSeminarioPage: React.FC = () => {
   const fullSubtitle = "Ansiedad y Depresión";
 
   useEffect(() => {
-    // Efecto de aparición con brillo para el título
+    // Efecto de escritura a lápiz para el título
     const titleTimer = setTimeout(() => {
       setTitleVisible(true);
-    }, 500);
+    }, 800);
 
-    // Efecto de aparición para el subtítulo después del título
+    // Efecto de escritura a lápiz para el subtítulo después del título
     const subtitleTimer = setTimeout(() => {
       setSubtitleVisible(true);
-    }, 1500);
+    }, 2000);
 
     return () => {
       clearTimeout(titleTimer);
