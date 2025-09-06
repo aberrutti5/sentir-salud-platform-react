@@ -34,6 +34,19 @@ const SetiembreSeminarioPage: React.FC = () => {
 
   return (
     <div className="seminar-page">
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center h-16">
+            <div className="flex items-center">
+              <img
+                className="h-8 w-auto"
+                src="/logo.png"
+                alt="Sentir Salud"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
       <div className="seminar-hero">
         <div className="corner-notification">
           <div className="notification-content">
@@ -46,20 +59,29 @@ const SetiembreSeminarioPage: React.FC = () => {
           </div>
         </div>
         <div className="hero-content">
-          <h1 className={`seminar-title ${titleVisible ? 'title-visible' : ''}`}>
-            {fullTitle}
-          </h1>
-          <h2 className={`seminar-subtitle ${subtitleVisible ? 'subtitle-visible' : ''}`}>
-            {fullSubtitle}
-          </h2>
-          <p className="seminar-date">
-            20 de Setiembre 2025
-          </p>
-          <div className="seminar-location">
-            <svg className="location-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-            <span>Hotel Radisson Montevideo</span>
+          <div className="hero-text">
+            <h1 className={`seminar-title ${titleVisible ? 'title-visible' : ''}`}>
+              {fullTitle}
+            </h1>
+            <h2 className={`seminar-subtitle ${subtitleVisible ? 'subtitle-visible' : ''}`}>
+              {fullSubtitle}
+            </h2>
+            <p className="seminar-date">
+              20 de Setiembre 2025
+            </p>
+            <div className="seminar-location">
+              <svg className="location-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <span>Hotel Radisson Montevideo</span>
+            </div>
+          </div>
+          <div className="hero-image">
+            <img 
+              src="/biodescodificacion.jpg" 
+              alt="Seminario de Biodescodificación - Ansiedad y Depresión"
+              className="main-hero-image"
+            />
           </div>
         </div>
       </div>
