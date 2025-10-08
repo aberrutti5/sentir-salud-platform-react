@@ -26,10 +26,8 @@ const OctubreSeminarioPage: React.FC = () => {
   }, []);
 
   const handleBuyTicket = () => {
-    // Aquí puedes integrar con tu sistema de pagos o redirigir a WhatsApp
-    const message = encodeURIComponent("Hola! Me interesa comprar una entrada para el Seminario de Biodescodificación - Ansiedad y Depresión del 18 de Octubre 2025 en Av.Brasil 2723. ¿Podrías darme más información sobre precios y disponibilidad?");
-    const whatsappUrl = `https://wa.me/59896611764?text=${message}`;
-    window.open(whatsappUrl, '_blank');
+    // Redirigir a Hotmart para comprar la entrada
+    window.open('https://pay.hotmart.com/L102305417A', '_blank');
   };
 
   return (
