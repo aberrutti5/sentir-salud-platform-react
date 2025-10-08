@@ -23,7 +23,7 @@ function CarouselFadeExample() {
       id: 0,
       title: 'Seminario de Biodescodificación',
       subtitle: 'Ansiedad y Depresión - 18 de Octubre 2025',
-      image_url: '/octubre.jpeg',
+      image_url: '/octubre.jpg',
       mobile_image_url: '/octubre.jpg',
       link: '/octubreseminario',
       show_overlay: true,
