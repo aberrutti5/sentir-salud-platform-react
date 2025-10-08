@@ -132,10 +132,10 @@ const OctubreSeminarioPage: React.FC = () => {
                   <strong>Lugar:</strong> Av.Brasil 2723
                 </div>
                 <div className="detail-item">
-                  <strong>Modalidad:</strong> Presencial
+                  <strong>Modalidad:</strong> Presencial/Zoom
                 </div>
                 <div className="detail-item">
-                  <strong>Duración:</strong> Día completo
+                  <strong>Duración:</strong> 15:00 hora Uruguay
                 </div>
               </div>
             </div>
