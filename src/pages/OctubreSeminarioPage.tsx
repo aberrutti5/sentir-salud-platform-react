@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './SetiembreSeminarioPage.css';
+import './OctubreSeminarioPage.css';
 
-const SetiembreSeminarioPage: React.FC = () => {
+const OctubreSeminarioPage: React.FC = () => {
   const [titleVisible, setTitleVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   
@@ -27,7 +27,7 @@ const SetiembreSeminarioPage: React.FC = () => {
 
   const handleBuyTicket = () => {
     // Aquí puedes integrar con tu sistema de pagos o redirigir a WhatsApp
-    const message = encodeURIComponent("Hola! Me interesa comprar una entrada para el Seminario de Biodescodificación - Ansiedad y Depresión del 20 de Setiembre 2025 en el Hotel Radisson Montevideo. ¿Podrías darme más información sobre precios y disponibilidad?");
+    const message = encodeURIComponent("Hola! Me interesa comprar una entrada para el Seminario de Biodescodificación - Ansiedad y Depresión del 18 de Octubre 2025 en Av.Brasil 2723. ¿Podrías darme más información sobre precios y disponibilidad?");
     const whatsappUrl = `https://wa.me/59896611764?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -67,13 +67,13 @@ const SetiembreSeminarioPage: React.FC = () => {
               {fullSubtitle}
             </h2>
             <p className="seminar-date">
-              20 de Setiembre 2025
+              18 de Octubre 2025
             </p>
             <div className="seminar-location">
               <svg className="location-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
               </svg>
-              <span>Hotel Radisson Montevideo</span>
+              <span>Av.Brasil 2723</span>
             </div>
           </div>
           <div className="hero-image">
@@ -128,10 +128,10 @@ const SetiembreSeminarioPage: React.FC = () => {
               <h3>Información del Evento</h3>
               <div className="event-details">
                 <div className="detail-item">
-                  <strong>Fecha:</strong> 20 de Setiembre 2025
+                  <strong>Fecha:</strong> 18 de Octubre 2025
                 </div>
                 <div className="detail-item">
-                  <strong>Lugar:</strong> Hotel Radisson Montevideo
+                  <strong>Lugar:</strong> Av.Brasil 2723
                 </div>
                 <div className="detail-item">
                   <strong>Modalidad:</strong> Presencial
@@ -165,4 +165,4 @@ const SetiembreSeminarioPage: React.FC = () => {
   );
 };
 
-export default SetiembreSeminarioPage;
+export default OctubreSeminarioPage;

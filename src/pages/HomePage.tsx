@@ -20,34 +20,44 @@ function CarouselFadeExample() {
   // Slides estáticos como fallback
   const fallbackSlides = [
     {
-      id: '1',
-      title: 'Bienvenidos a Sentir Salud',
-      subtitle: 'Descubre el poder de la Biodescodificación',
-      image_url: '/banner.jpg',
-      mobile_image_url: '/banner.jpg',
-      link: null,
+      id: 0,
+      title: 'Seminario de Biodescodificación',
+      subtitle: 'Ansiedad y Depresión - 18 de Octubre 2025',
+      image_url: '/octubre.jpeg',
+      mobile_image_url: '/octubre.jpg',
+      link: '/octubreseminario',
       show_overlay: true,
       orden: 1
     },
     {
-      id: '2',
-      title: 'Formación Profesional',
-      subtitle: 'Conviértete en un terapeuta holístico certificado',
-      image_url: '/banner2.jpg',
-      mobile_image_url: '/banner2.jpg',
-      link: null,
+      id: 1,
+      title: 'Bienvenidos a Sentir Salud',
+      subtitle: 'Descubre el poder de la Biodescodificación',
+      image_url: '/banner.jpg',
+      mobile_image_url: '/banner.jpg',
+      link: undefined,
       show_overlay: true,
       orden: 2
     },
     {
-      id: '3',
+      id: 2,
+      title: 'Formación Profesional',
+      subtitle: 'Conviértete en un terapeuta holístico certificado',
+      image_url: '/banner2.jpg',
+      mobile_image_url: '/banner2.jpg',
+      link: undefined,
+      show_overlay: true,
+      orden: 3
+    },
+    {
+      id: 3,
       title: 'Terapias Personalizadas',
       subtitle: 'Acompañamiento individual para tu sanación',
       image_url: '/banner3.jpg',
       mobile_image_url: '/banner3.jpg',
-      link: null,
+      link: undefined,
       show_overlay: true,
-      orden: 3
+      orden: 4
     }
   ];
 
@@ -60,7 +70,8 @@ function CarouselFadeExample() {
           .order('orden', { ascending: true });
 
         if (error) throw error;
-        setSlides(data && data.length > 0 ? data : fallbackSlides);
+        // Usar fallbackSlides por ahora para incluir el seminario de octubre
+        setSlides(fallbackSlides);
       } catch (err) {
         console.log('Error cargando slides desde Supabase, usando slides estáticos:', err);
         setSlides(fallbackSlides);
@@ -86,27 +97,51 @@ function CarouselFadeExample() {
         {slides.map((slide) => (
           <Carousel.Item key={slide.id} className="lg:h-auto">
             {slide.link ? (
-              <a href={slide.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
-                  <picture>
-                    {slide.mobile_image_url && (
-                      <source media="(max-width: 1023px)" srcSet={slide.mobile_image_url} />
+              slide.link.startsWith('/') ? (
+                <Link to={slide.link} className="block w-full h-full">
+                  <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
+                    <picture>
+                      {slide.mobile_image_url && (
+                        <source media="(max-width: 1023px)" srcSet={slide.mobile_image_url} />
+                      )}
+                      <img 
+                        src={slide.image_url} 
+                        alt={slide.title} 
+                        className="w-full h-full object-cover lg:object-contain"
+                      />
+                    </picture>
+                    {slide.show_overlay !== false && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
                     )}
-                    <img 
-                      src={slide.image_url} 
-                      alt={slide.title} 
-                      className="w-full h-full object-cover lg:object-contain"
-                    />
-                  </picture>
-                  {slide.show_overlay !== false && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-                  )}
-                </div>
-                <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
-                  <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
-                </Carousel.Caption>
-              </a>
+                  </div>
+                  <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
+                    <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
+                  </Carousel.Caption>
+                </Link>
+              ) : (
+                <a href={slide.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                  <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
+                    <picture>
+                      {slide.mobile_image_url && (
+                        <source media="(max-width: 1023px)" srcSet={slide.mobile_image_url} />
+                      )}
+                      <img 
+                        src={slide.image_url} 
+                        alt={slide.title} 
+                        className="w-full h-full object-cover lg:object-contain"
+                      />
+                    </picture>
+                    {slide.show_overlay !== false && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                    )}
+                  </div>
+                  <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">{slide.title}</h3>
+                    <p className="text-sm md:text-base lg:text-lg">{slide.subtitle}</p>
+                  </Carousel.Caption>
+                </a>
+              )
             ) : (
               <>
                 <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:bg-black">
