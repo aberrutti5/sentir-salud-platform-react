@@ -21,11 +21,11 @@ function CarouselFadeExample() {
   const fallbackSlides = [
     {
       id: 0,
-      title: 'Seminario de Biodescodificación',
-      subtitle: 'Libera la Ansiedad y la Depresión - 18 de Octubre 2025',
-      image_url: '/octubre.jpg',
-      mobile_image_url: '/octubre_mobile.jpg',
-      link: '/octubreseminario',
+      title: 'El Cáncer No Es Tu Enemigo',
+      subtitle: 'El camino hacia la sanación desde la Biodescodificación',
+      image_url: '/nuevo-ebook.jpg',
+      mobile_image_url: '/nuevo-ebook.jpg',
+      link: '/ebook',
       show_overlay: true,
       orden: 1
     },
