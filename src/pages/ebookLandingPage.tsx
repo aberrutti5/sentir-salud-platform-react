@@ -71,10 +71,10 @@ export default function EbookLandingPage() {
       <section id="oferta" className="py-10 px-4 max-w-xl mx-auto text-center">
         <h2 className="text-2xl font-bold text-green-700 mb-4">¡Precio lanzamiento por tiempo limitado!</h2>
         <div className="bg-green-100 rounded-lg p-6 mb-4">
-          <span className="block text-3xl font-bold text-green-700 mb-2">Solo 9 dólares</span>
+          <span className="block text-3xl font-bold text-green-700 mb-2">Solo 12 dólares</span>
           <span className="text-gray-700">Oferta válida por tiempo limitado</span>
         </div>
-        <a href="https://www.paypal.com/ncp/payment/EK2CZL49B9VKJ" target="_blank" rel="noopener noreferrer" className="bg-green-600 text-white font-bold px-8 py-3 rounded-md text-lg shadow hover:bg-green-700 transition-colors">¡QUIERO MI EBOOK AHORA!</a>
+        <a href="https://www.paypal.com/ncp/payment/C7SK48X7VRQGA" target="_blank" rel="noopener noreferrer" className="bg-green-600 text-white font-bold px-8 py-3 rounded-md text-lg shadow hover:bg-green-700 transition-colors">¡QUIERO MI EBOOK AHORA!</a>
       </section>
 
       {/* ¿Para quién es este ebook? y contenido */}
@@ -114,7 +114,7 @@ export default function EbookLandingPage() {
 
       {/* CTA final */}
       <section className="py-10 px-4 text-center">
-        <a href="https://www.paypal.com/ncp/payment/EK2CZL49B9VKJ" target="_blank" rel="noopener noreferrer" className="bg-green-600 text-white font-bold px-10 py-4 rounded-md text-xl shadow hover:bg-green-700 transition-colors">LO QUIERO AHORA</a>
+        <a href="https://www.paypal.com/ncp/payment/C7SK48X7VRQGA" target="_blank" rel="noopener noreferrer" className="bg-green-600 text-white font-bold px-10 py-4 rounded-md text-xl shadow hover:bg-green-700 transition-colors">LO QUIERO AHORA</a>
         <p className="text-gray-700 mt-2">Oferta válida solo por los próximos minutos</p>
       </section>
     </div>
