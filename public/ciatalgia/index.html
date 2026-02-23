@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adiós al Dolor de Ciática y Lumbalgia en 10 Días | Sentir Salud · Técnica Sujok</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF5EE;
+    --warm-white: #FFF9F2;
+    --earth: #8B6245;
+    --earth-dark: #5C3D22;
+    --sage: #6B7F5E;
+    --sage-light: #A8BF9A;
+    --gold: #C8973A;
+    --gold-light: #E8C27A;
+    --red-pain: #C04B3A;
+    --text: #2C1F14;
+    --text-light: #6B5B4E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ============ HEADER BANNER ============ */
+  .top-banner {
+    background: var(--red-pain);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    animation: pulse-banner 3s ease-in-out infinite;
+  }
+  @keyframes pulse-banner {
+    0%, 100% { background: var(--red-pain); }
+    50% { background: #A33A2B; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--earth-dark) 0%, #3A2510 40%, #1E1208 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 24px 60px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(200, 151, 58, 0.15) 0%, transparent 70%);
+  }
+
+  .hero-circles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .hero-circles span {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 151, 58, 0.08);
+    animation: float-circle 20s ease-in-out infinite;
+  }
+  .hero-circles span:nth-child(1) { width: 600px; height: 600px; top: -100px; left: -150px; animation-delay: 0s; }
+  .hero-circles span:nth-child(2) { width: 400px; height: 400px; bottom: -50px; right: -100px; animation-delay: -7s; }
+  .hero-circles span:nth-child(3) { width: 200px; height: 200px; top: 30%; left: 70%; animation-delay: -14s; border-color: rgba(107, 127, 94, 0.15); }
+  @keyframes float-circle {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(20px, -20px); }
+    66% { transform: translate(-15px, 15px); }
+  }
+
+  .hero-tag {
+    background: rgba(200, 151, 58, 0.15);
+    border: 1px solid rgba(200, 151, 58, 0.3);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s ease forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 7vw, 76px);
+    font-weight: 300;
+    color: white;
+    text-align: center;
+    line-height: 1.1;
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    animation: fadeDown 0.8s 0.2s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero h1 strong {
+    display: block;
+    font-weight: 600;
+    font-size: 1.1em;
+  }
+
+  .hero-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    max-width: 580px;
+    margin-top: 24px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s 0.4s ease both;
+  }
+
+  .hero-promise {
+    margin-top: 40px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s 0.6s ease both;
+  }
+  .promise-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .promise-pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--sage-light);
+  }
+
+  .hero-cta-group {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s 0.8s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, #A07028 100%);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 20px 48px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 40px rgba(200, 151, 58, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 60px rgba(200, 151, 58, 0.5);
+  }
+
+  .price-preview {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    text-align: center;
+  }
+  .price-preview strong { color: var(--gold-light); }
+  .price-preview s { opacity: 0.5; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: bounce-scroll 2s ease-in-out infinite;
+    z-index: 1;
+  }
+  .hero-scroll svg { opacity: 0.4; }
+  @keyframes bounce-scroll {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 80px 24px; }
+
+  .container { max-width: 900px; margin: 0 auto; }
+  .container-wide { max-width: 1100px; margin: 0 auto; }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--sage);
+    display: inline-block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 50px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--text);
+  }
+  .section-title em { font-style: italic; color: var(--earth); }
+
+  /* ============ PAIN SECTION ============ */
+  .pain-section {
+    background: var(--warm-white);
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 48px;
+    border: 2px solid var(--text);
+  }
+
+  .pain-item {
+    padding: 32px;
+    background: var(--cream);
+    border-right: 2px solid var(--text);
+    border-bottom: 2px solid var(--text);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .pain-item:nth-child(2), .pain-item:nth-child(4) { border-right: none; }
+  .pain-item:nth-child(3), .pain-item:nth-child(4) { border-bottom: none; }
+  .pain-item:hover { background: #FFF0E8; }
+
+  .pain-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: rgba(192, 75, 58, 0.1);
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    line-height: 1;
+  }
+
+  .pain-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--red-pain);
+    margin-bottom: 10px;
+  }
+  .pain-item p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  .pain-closing {
+    margin-top: 48px;
+    padding: 40px;
+    background: var(--earth-dark);
+    color: white;
+    border-radius: 2px;
+  }
+  .pain-closing p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-style: italic;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .pain-closing strong { color: var(--gold-light); font-style: normal; }
+
+  /* ============ SOLUTION ============ */
+  .solution-section {
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .solution-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-top: 48px;
+  }
+
+  .solution-visual {
+    position: relative;
+  }
+
+  .hand-diagram {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--earth-dark), #2A1508);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(92, 61, 34, 0.4);
+  }
+
+  .hand-diagram svg {
+    width: 65%;
+    height: 65%;
+    fill: none;
+  }
+
+  .hand-diagram::after {
+    content: 'SUJOK';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .point {
+    position: absolute;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(200, 151, 58, 0.3);
+    animation: pulse-point 2s ease-in-out infinite;
+  }
+  .point:nth-child(1) { top: 22%; left: 42%; animation-delay: 0s; }
+  .point:nth-child(2) { top: 38%; left: 52%; animation-delay: 0.4s; }
+  .point:nth-child(3) { top: 55%; left: 38%; animation-delay: 0.8s; }
+  .point:nth-child(4) { top: 62%; left: 55%; animation-delay: 1.2s; }
+  .point:nth-child(5) { top: 70%; left: 44%; animation-delay: 1.6s; }
+  @keyframes pulse-point {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+
+  .solution-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .solution-content p {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .solution-facts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .fact {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: var(--warm-white);
+    border-left: 3px solid var(--sage);
+  }
+  .fact-icon {
+    width: 32px; height: 32px;
+    background: var(--sage);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 14px;
+  }
+  .fact p { color: var(--text); font-size: 14px; line-height: 1.5; margin: 0; }
+
+  /* ============ WHAT YOU GET ============ */
+  .offer-section {
+    background: var(--earth-dark);
+    color: white;
+  }
+  .offer-section .section-tag { color: var(--gold-light); }
+  .offer-section .section-tag::before { background: var(--gold-light); }
+  .offer-section .section-title { color: white; }
+  .offer-section .section-title em { color: var(--gold-light); }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .offer-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 36px 28px;
+    border-radius: 2px;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .offer-card:hover {
+    background: rgba(200, 151, 58, 0.08);
+    border-color: rgba(200, 151, 58, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .offer-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--earth-dark);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .offer-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: white;
+  }
+  .offer-card p {
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .offer-list {
+    list-style: none;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .offer-list li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .offer-list li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 10px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ============ ABOUT / CREDIBILITY ============ */
+  .about-section {
+    background: var(--warm-white);
+  }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 48px;
+  }
+
+  .about-avatar {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--sage) 0%, var(--earth-dark) 100%);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='35' r='18' fill='rgba(255,255,255,0.15)'/%3E%3Cellipse cx='50' cy='80' rx='26' ry='22' fill='rgba(255,255,255,0.1)'/%3E%3C/svg%3E") center/60% no-repeat;
+  }
+
+  .avatar-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    padding: 12px;
+    border-radius: 2px;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-box {
+    text-align: center;
+    padding: 20px 16px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--earth);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 6px;
+    display: block;
+  }
+
+  .about-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .about-text p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-light);
+    margin-bottom: 14px;
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .testimonials-section {
+    background: var(--cream);
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .testi-card {
+    background: white;
+    padding: 32px;
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+  .testi-card::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: var(--sage-light);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+
+  .testi-stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  .testi-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testi-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .testi-author div { font-size: 13px; }
+  .testi-author strong { display: block; font-size: 14px; }
+
+  /* ============ PRICE SECTION ============ */
+  .price-section {
+    background: linear-gradient(160deg, #1A0F06 0%, var(--earth-dark) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200, 151, 58, 0.12) 0%, transparent 70%);
+  }
+  .price-section .section-tag { justify-content: center; color: var(--gold-light); }
+  .price-section .section-tag::before { background: var(--gold-light); }
+  .price-section .section-title { color: white; text-align: center; }
+
+  .price-card {
+    max-width: 520px;
+    margin: 48px auto 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200, 151, 58, 0.3);
+    padding: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .price-card::before {
+    content: 'OFERTA ESPECIAL';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--earth-dark);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 6px 20px;
+    white-space: nowrap;
+  }
+
+  .old-price {
+    color: rgba(255,255,255,0.4);
+    font-size: 18px;
+    text-decoration: line-through;
+    margin-bottom: 8px;
+  }
+
+  .current-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .current-price sup { font-size: 32px; vertical-align: top; margin-top: 16px; display: inline-block; }
+
+  .price-note {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
+
+  .include-list {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .include-list li {
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .include-list li::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: var(--sage);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .guarantee {
+    margin-top: 24px;
+    padding: 20px;
+    background: rgba(107, 127, 94, 0.15);
+    border: 1px solid rgba(107, 127, 94, 0.3);
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .guarantee strong { color: var(--sage-light); display: block; margin-bottom: 4px; }
+
+  /* ============ FAQ ============ */
+  .faq-section {
+    background: var(--warm-white);
+  }
+
+  .faq-list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .faq-item {
+    background: white;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    padding: 24px 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.2s;
+    user-select: none;
+  }
+  .faq-q:hover { color: var(--earth); }
+  .faq-q .icon {
+    width: 28px; height: 28px;
+    background: var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    color: var(--earth);
+    font-weight: 300;
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .faq-a-inner {
+    padding: 0 28px 24px;
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.7;
+    border-top: 1px solid var(--cream);
+  }
+
+  .faq-item.open .faq-q .icon { transform: rotate(45deg); }
+  .faq-item.open .faq-a { max-height: 500px; }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta {
+    background: linear-gradient(135deg, var(--sage) 0%, var(--earth-dark) 100%);
+    text-align: center;
+    padding: 100px 24px;
+  }
+
+  .final-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 300;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .final-cta h2 em { font-style: italic; color: var(--gold-light); }
+  .final-cta p {
+    color: rgba(255,255,255,0.65);
+    font-size: 18px;
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: #0E0806;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    .pain-grid { grid-template-columns: 1fr; }
+    .pain-item { border-right: none !important; }
+    .solution-layout { grid-template-columns: 1fr; }
+    .offer-grid { grid-template-columns: 1fr; }
+    .about-layout { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* LOGO */
+  .brand-logo {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,0.3));
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s ease forwards;
+    margin-bottom: 8px;
+  }
+  .footer-logo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.7;
+    margin-bottom: 12px;
+    filter: brightness(0) invert(1);
+  }
+
+  /* Urgency ticker */
+  .urgency-bar {
+    background: #1A1008;
+    padding: 14px;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .urgency-bar strong { color: var(--gold-light); }
+  #countdown {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  🌿 DESCUENTO POR TIEMPO LIMITADO · Solo $25 USD (precio real $100) · Acceso inmediato
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-circles">
+    <span></span><span></span><span></span>
+  </div>
+
+  <img src="/logo-sentir-salud.png" alt="Sentir Salud" class="brand-logo">
+  <div class="hero-tag">Sentir Salud · Técnica Coreana Sujok · Medicina Holística</div>
+
+  <h1>
+    <em>¿Y si tu mano pudiera</em>
+    <strong>eliminar el dolor de ciática y lumbalgia</strong>
+    en solo 10 días?
+  </h1>
+
+  <p class="hero-sub">
+    La técnica ancestral coreana que activa puntos gatillo en tus manos para liberar el dolor sin agujas, sin medicamentos y desde casa — avalada por más de 500 casos reales.
+  </p>
+
+  <div class="hero-promise">
+    <div class="promise-pill"><span class="dot"></span> Sin agujas</div>
+    <div class="promise-pill"><span class="dot"></span> Sin medicamentos</div>
+    <div class="promise-pill"><span class="dot"></span> 100% natural</div>
+    <div class="promise-pill"><span class="dot"></span> Acceso inmediato</div>
+  </div>
+
+  <div class="hero-cta-group">
+    <a href="https://www.paypal.com/ncp/payment/YPWM366NMRQCA" class="btn-primary">Quiero eliminar mi dolor ahora →</a>
+    <div class="price-preview">
+      Inversión única: <strong>$25 USD</strong> · antes <s>$100</s> · Acceso de por vida
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Seguir leyendo</span>
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="white"><path d="M7 0v18M1 12l6 6 6-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  ⏱ Esta oferta especial vence en: <span id="countdown">23:47:12</span>
+  <strong>· Solo quedan plazas limitadas</strong>
+</div>
+
+<!-- PAIN SECTION -->
+<section class="pain-section">
+  <div class="container">
+    <div class="section-tag">¿Te reconocés aquí?</div>
+    <h2 class="section-title">
+      Sabés exactamente lo que es vivir con ese <em>dolor que no para</em>
+    </h2>
+
+    <div class="pain-grid">
+      <div class="pain-item">
+        <div class="pain-number">1</div>
+        <h3>Te despertás con dolor</h3>
+        <p>Cada mañana es una batalla. Levantarte de la cama duele, y el día empieza con limitaciones desde el primer momento.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-number">2</div>
+        <h3>El movimiento ya da miedo</h3>
+        <p>Inclinarte, sentarte, caminar... cualquier gesto simple se convierte en una negociación con tu propio cuerpo.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-number">3</div>
+        <h3>Los calmantes no alcanzan</h3>
+        <p>Probaste pastillas, parches, infiltraciones. El alivio es temporal y la dependencia crece. Tu cuerpo pide otra solución.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-number">4</div>
+        <h3>Perdiste actividades que amabas</h3>
+        <p>Cuidar a tus hijos, trabajar sin parar, practicar lo que te gusta — el dolor fue robándote tu vida de a poco.</p>
+      </div>
+    </div>
+
+    <div class="pain-closing">
+      <p>
+        No es tu culpa. El sistema médico convencional trata el síntoma, <strong>no la raíz</strong>. Existe otra manera — y lleva miles de años funcionando en el otro lado del mundo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION SECTION -->
+<section class="solution-section">
+  <div class="container">
+    <div class="section-tag">La solución</div>
+    <h2 class="section-title">
+      Sujok: la ciencia coreana que <em>mapea tu cuerpo</em> en tus manos
+    </h2>
+
+    <div class="solution-layout">
+      <div class="solution-visual">
+        <div class="hand-diagram">
+          <div class="point"></div>
+          <div class="point"></div>
+          <div class="point"></div>
+          <div class="point"></div>
+          <div class="point"></div>
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+            <path d="M45,110 C30,110 18,95 18,78 L18,45 C18,40 21,37 25,37 C29,37 32,40 32,45 L32,60 L36,60 L36,25 C36,20 39,17 43,17 C47,17 50,20 50,25 L50,60 L54,60 L54,22 C54,17 57,14 61,14 C65,14 68,17 68,22 L68,60 L72,60 L72,30 C72,25 75,22 79,22 C83,22 86,25 86,30 L86,60 C86,60 88,62 88,65 L88,78 C88,95 76,110 61,110 Z" stroke="rgba(200,151,58,0.6)" stroke-width="1.5" fill="rgba(200,151,58,0.05)"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="solution-content">
+        <h3>Cada punto de tu mano corresponde a una zona de tu cuerpo</h3>
+        <p>
+          Sujok es una técnica de acupuntura coreana que descubrió que <strong>la mano humana es un mapa perfecto de todo el organismo</strong>. Al estimular puntos específicos en los dedos y la palma, se activa la respuesta natural de sanación del cuerpo.
+        </p>
+        <p>
+          Sin agujas. Sin dolor. Sin efectos secundarios. Solo tus manos y el conocimiento correcto.
+        </p>
+
+        <div class="solution-facts">
+          <div class="fact">
+            <div class="fact-icon">✦</div>
+            <p><strong>Origen:</strong> Desarrollada por el Dr. Park Jae Woo en Corea en los años 80, reconocida por miles de terapeutas en todo el mundo.</p>
+          </div>
+          <div class="fact">
+            <div class="fact-icon">✦</div>
+            <p><strong>Mecanismo:</strong> Activa puntos reflejos y puntos gatillo que desbloquean la energía estancada en la zona lumbar y el nervio ciático.</p>
+          </div>
+          <div class="fact">
+            <div class="fact-icon">✦</div>
+            <p><strong>Resultados:</strong> Muchos pacientes reportan alivio desde la primera sesión y eliminación del dolor en 7-10 días de práctica constante.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="offer-section">
+  <div class="container-wide">
+    <div class="section-tag">Tu programa completo</div>
+    <h2 class="section-title">
+      Todo lo que recibís para <em>eliminar el dolor para siempre</em>
+    </h2>
+
+    <div class="offer-grid">
+      <div class="offer-card">
+        <div class="offer-badge">Clase 1 · Grabada</div>
+        <h3>Fundamentos & Diagnóstico Sujok</h3>
+        <p>Entendé el mapa de tu mano y encontrá exactamente los puntos que corresponden a tu dolor lumbar y ciático.</p>
+        <ul class="offer-list">
+          <li>Anatomía de la mano como mapa corporal</li>
+          <li>Los 7 puntos clave para ciática y lumbalgia</li>
+          <li>Técnica de diagnóstico por presión</li>
+          <li>Cómo identificar puntos activos vs. dormidos</li>
+          <li>Demostración grabada con paciente real</li>
+        </ul>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-badge">Clase 2 · Grabada</div>
+        <h3>Protocolo de 10 Días + Terapia Avanzada</h3>
+        <p>El protocolo exacto paso a paso que seguís cada día para eliminar el dolor de raíz y que no vuelva.</p>
+        <ul class="offer-list">
+          <li>Protocolo diario de 15 minutos (días 1–10)</li>
+          <li>Puntos de mantenimiento preventivo</li>
+          <li>Técnicas para crisis de dolor agudo</li>
+          <li>Cómo enseñarles a tus pacientes (para terapeutas)</li>
+          <li>Casos clínicos reales resueltos paso a paso</li>
+        </ul>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-badge">E-Book · PDF Completo</div>
+        <h3>Guía Práctica Sujok para Ciática y Lumbalgia</h3>
+        <p>Tu manual de referencia permanente con todos los mapas, puntos y protocolos ilustrados para consultar siempre.</p>
+        <ul class="offer-list">
+          <li>Mapas ilustrados de la mano en alta resolución</li>
+          <li>Protocolo de 10 días detallado día por día</li>
+          <li>Fichas de seguimiento del dolor (descargables)</li>
+          <li>Tabla de puntos por zona del cuerpo</li>
+          <li>Preguntas frecuentes y casos especiales</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / CREDIBILITY -->
+<section class="about-section">
+  <div class="container">
+    <div class="section-tag">¿Por qué confiarme tu sanación?</div>
+    <h2 class="section-title">
+      Más de 500 personas eliminaron su dolor. <em>Yo fui una de ellas.</em>
+    </h2>
+
+    <div class="about-layout">
+      <div>
+        <div class="about-avatar">
+          <div class="avatar-label">Terapeuta Sujok Certificada</div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">500+</span>
+            <span class="stat-label">Personas sanadas</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">10</span>
+            <span class="stat-label">Días de protocolo</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Natural y seguro</span>
+          </div>
+        </div>
+
+        <h3>Mi historia con el dolor cambió todo</h3>
+        <p>
+          Antes de ser terapeuta, yo también tuve dolor de ciática y lumbalgia. Probé de todo: kinesiología, infiltraciones, reposo. El alivio era parcial y temporal. Hasta que llegó Sujok a mi vida.
+        </p>
+        <p>
+          Lo que sucedió en mis propias manos fue tan poderoso que decidí formarme formalmente en esta técnica coreana. Hoy, después de acompañar a <strong>más de 500 personas</strong> — entre pacientes propios y colegas terapeutas que incorporaron el método — puedo afirmar con certeza: <em>el dolor de ciática y lumbalgia tiene solución natural</em>.
+        </p>
+        <p>
+          Creé este programa porque quiero que esta herramienta llegue a cada mujer, cada terapeuta, cada persona que todavía no sabe que tiene el poder de sanarse en sus propias manos.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="container-wide">
+    <div class="section-tag">Lo que dice la comunidad</div>
+    <h2 class="section-title">
+      Historias reales de personas que <em>dijeron adiós al dolor</em>
+    </h2>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">
+          "Llevaba 3 años con dolor de ciática. Al séptimo día del protocolo me levanté sin dolor por primera vez en años. No lo podía creer. Hoy les enseño la técnica a mis hijas."
+        </p>
+        <div class="testi-author">
+          <div class="testi-dot" style="background: var(--sage);">M</div>
+          <div>
+            <strong>María Elena, 52 años</strong>
+            <span style="color:var(--text-light); font-size:12px">Empleada administrativa · Buenos Aires</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">
+          "Como terapeuta holística siempre busco nuevas herramientas. Sujok superó todas mis expectativas. Hoy es parte central de mis sesiones y mis pacientes obtienen resultados en días."
+        </p>
+        <div class="testi-author">
+          <div class="testi-dot" style="background: var(--earth);">A</div>
+          <div>
+            <strong>Andrea P., 41 años</strong>
+            <span style="color:var(--text-light); font-size:12px">Terapeuta holística · Rosario</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">
+          "Mi médico me dijo que necesitaba cirugía. Decidí intentar Sujok antes. A los 10 días el dolor había desaparecido un 80%. La cirugía nunca llegó a ser necesaria."
+        </p>
+        <div class="testi-author">
+          <div class="testi-dot" style="background: var(--earth-dark);">C</div>
+          <div>
+            <strong>Claudia R., 47 años</strong>
+            <span style="color:var(--text-light); font-size:12px">Docente · Montevideo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">
+          "El ebook solo ya vale mucho más de lo que pagué. Los mapas son clarísimos y el protocolo está tan bien explicado que lo pude hacer sola desde el primer día."
+        </p>
+        <div class="testi-author">
+          <div class="testi-dot" style="background: var(--sage);">L</div>
+          <div>
+            <strong>Laura G., 38 años</strong>
+            <span style="color:var(--text-light); font-size:12px">Mamá y emprendedora · Córdoba</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">
+          "Incorporé Sujok a mi práctica de reflexología y los resultados con pacientes de lumbalgia son extraordinarios. El curso paga sus $25 con la primera sesión que aplico."
+        </p>
+        <div class="testi-author">
+          <div class="testi-dot" style="background: var(--gold);">S</div>
+          <div>
+            <strong>Sofía T., 44 años</strong>
+            <span style="color:var(--text-light); font-size:12px">Reflexóloga certificada · Santiago</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">
+          "Tenía miedo de que fuera otro curso que no funcionara. Pero el alivio fue tan rápido que al tercer día ya se lo estaba recomendando a mis amigas. Gracias de verdad."
+        </p>
+        <div class="testi-author">
+          <div class="testi-dot" style="background: var(--red-pain);">V</div>
+          <div>
+            <strong>Valeria M., 55 años</strong>
+            <span style="color:var(--text-light); font-size:12px">Ama de casa · Lima</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE SECTION -->
+<section class="price-section" id="precio">
+  <div class="container">
+    <div class="section-tag">Tu inversión de por vida</div>
+    <h2 class="section-title">
+      El fin de tu dolor vale mucho más que <em>$25</em>
+    </h2>
+
+    <div class="price-card">
+      <div class="old-price">Precio real: $100 USD</div>
+      <div class="current-price"><sup>$</sup>25</div>
+      <div class="price-note">USD · Pago único · Acceso de por vida</div>
+
+      <ul class="include-list">
+        <li>Clase 1 — Fundamentos y Diagnóstico Sujok · Sentir Salud (acceso permanente)</li>
+        <li>Clase 2 — Protocolo de 10 días + Avanzado · Sentir Salud (acceso permanente)</li>
+        <li>E-Book ilustrado Sujok para Ciática y Lumbalgia (PDF descargable)</li>
+        <li>Mapas de la mano en alta resolución para impresión</li>
+        <li>Fichas de seguimiento del dolor descargables</li>
+        <li>Acceso al grupo de práctica y consultas</li>
+      </ul>
+
+      <a href="https://www.paypal.com/ncp/payment/YPWM366NMRQCA" class="btn-primary" style="width:100%; text-align:center; display:block">
+        ✦ Sí, quiero empezar mi sanación hoy — $25 USD
+      </a>
+
+      <div class="guarantee">
+        <strong>🛡 Garantía de satisfacción 7 días</strong>
+        Si dentro de los 7 días de aplicar el protocolo no notás ninguna mejora, te devolvemos el 100% de tu inversión. Sin preguntas. Sin burocracia.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-tag">Preguntas frecuentes</div>
+    <h2 class="section-title">
+      Todo lo que necesitás <em>saber antes de empezar</em>
+    </h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Necesito experiencia previa en medicina holística?
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Para nada. El programa está diseñado para comenzar desde cero. Si ya tenés experiencia como terapeuta, vas a poder aplicarlo con tus pacientes desde la primera clase. Si sos una persona con dolor sin formación previa, también vas a poder seguirlo perfectamente — está explicado paso a paso con lenguaje claro y accesible.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Esto reemplaza al médico o tratamiento convencional?
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Sujok es una técnica complementaria. Puede convivir perfectamente con cualquier tratamiento médico que estés realizando y en muchos casos potencia sus resultados. Nunca recomendamos interrumpir medicación o tratamiento médico indicado. Lo que sí hacemos es darte una herramienta poderosa que puede acelerar tu recuperación de forma natural.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Cuánto tiempo lleva el protocolo diario?
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Solo 15 minutos al día durante 10 días. Podés hacerlo a cualquier hora, en cualquier lugar, porque solo necesitás tus manos. Muchas personas lo incorporan a la mañana al despertarse o a la noche antes de dormir.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Cuándo recibo el acceso al material?
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            El acceso es inmediato. Una vez confirmado el pago, recibís un email con todos los links de acceso a las clases grabadas y el e-book en PDF. En menos de 5 minutos ya podés estar viendo la primera clase y aplicando las técnicas.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Funciona también para personas mayores de 60 años?
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Sí, absolutamente. De hecho, una gran parte de las 500+ personas que aplicaron esta técnica tienen entre 55 y 75 años. Sujok es especialmente valorado por personas mayores porque no requiere esfuerzo físico, no tiene contraindicaciones y se puede hacer sentada cómodamente.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Puedo enseñarles esta técnica a mis pacientes si soy terapeuta?
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Sí. La Clase 2 incluye una sección específica para terapeutas con protocolos de enseñanza a pacientes. Muchos de los terapeutas que ya tomaron el programa incorporaron Sujok como servicio diferencial y están obteniendo resultados extraordinarios con sus consultas.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Tu cuerpo tiene el poder de sanar. <em>Solo necesita la clave correcta.</em></h2>
+    <p>Más de 500 personas ya lo descubrieron. Hoy es tu turno.</p>
+    <a href="https://www.paypal.com/ncp/payment/YPWM366NMRQCA" class="btn-primary">
+      Empezar mi sanación por $25 USD →
+    </a>
+    <p style="margin-top:20px; font-size:13px; opacity:0.5">
+      ✓ Pago seguro &nbsp;·&nbsp; ✓ Acceso inmediato &nbsp;·&nbsp; ✓ Garantía 7 días
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="/logo-sentir-salud.png" alt="Sentir Salud" class="footer-logo"><br>
+  <p>© 2025 · Sentir Salud · Todos los derechos reservados</p>
+  <p style="margin-top:8px; font-size:11px">
+    Los resultados pueden variar según cada persona. Esta formación es complementaria y no reemplaza la consulta médica profesional.
+  </p>
+</footer>
+
+<script>
+  // FAQ ACCORDION
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // COUNTDOWN TIMER
+  function updateCountdown() {
+    const saved = localStorage.getItem('sujok_deadline');
+    let deadline;
+    if (saved) {
+      deadline = new Date(parseInt(saved));
+    } else {
+      deadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      localStorage.setItem('sujok_deadline', deadline.getTime());
+    }
+
+    function tick() {
+      const now = new Date();
+      let diff = Math.max(0, deadline - now);
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('countdown').textContent =
+        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+  updateCountdown();
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.offer-card, .testi-card, .pain-item, .stat-box, .fact').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
