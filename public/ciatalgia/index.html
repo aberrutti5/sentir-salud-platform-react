@@ -670,6 +670,17 @@
   .testimonials-section {
     background: var(--cream);
   }
+  .video-featured {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 48px;
+  }
+  .video-featured video {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  }
 
   .testi-grid {
     display: grid;
@@ -1211,6 +1222,16 @@
     <h2 class="section-title">
       Historias reales de personas que <em>dijeron adiós al dolor</em>
     </h2>
+
+    <div class="video-featured">
+      <video
+        src="/ciatalgia/testimonio.mp4"
+        poster="/ciatalgia/testimonio-poster.webp"
+        controls
+        preload="none"
+        playsinline
+      ></video>
+    </div>
 
     <div class="testi-grid">
       <div class="testi-card">
