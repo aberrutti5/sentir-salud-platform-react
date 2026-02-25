@@ -1228,8 +1228,9 @@
         src="/ciatalgia/testimonio.mp4"
         poster="/ciatalgia/testimonio-poster.webp"
         controls
-        preload="none"
+        muted
         playsinline
+        preload="metadata"
       ></video>
     </div>
 
@@ -1520,6 +1521,22 @@
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
   });
+
+  // VIDEO AUTOPLAY ON SCROLL
+  const video = document.querySelector('.video-featured video');
+  if (video) {
+    video.muted = true;
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+    videoObserver.observe(video);
+  }
 </script>
 
 </body>
