@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote, Zap } from 'lucide-react';
+import { Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote } from 'lucide-react';
 import Carousel from 'react-bootstrap/Carousel';
 import { supabase, CarouselSlide } from '../lib/supabase';
 
@@ -194,9 +194,29 @@ interface Testimonio {
   country: string;
 }
 
-function TestimonioCard({ testimonio }: { testimonio: Testimonio }) {
-  const [imgSrc, setImgSrc] = useState(testimonio.image);
+const avatarColors = [
+  { bg: '#dcfce7', circle: '#16a34a', skin: '#fde68a', hair: '#78350f' },
+  { bg: '#dbeafe', circle: '#2563eb', skin: '#fcd34d', hair: '#1e293b' },
+  { bg: '#fce7f3', circle: '#db2777', skin: '#fed7aa', hair: '#7c3aed' },
+];
 
+function AvatarSVG({ index }: { index: number }) {
+  const c = avatarColors[index % avatarColors.length];
+  return (
+    <svg viewBox="0 0 48 48" width="48" height="48" className="rounded-full ring-2 ring-white flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+      {/* Fondo */}
+      <circle cx="24" cy="24" r="24" fill={c.bg} />
+      {/* Cuerpo */}
+      <ellipse cx="24" cy="38" rx="13" ry="9" fill={c.circle} opacity="0.85" />
+      {/* Cabeza */}
+      <circle cx="24" cy="20" r="9" fill={c.skin} />
+      {/* Pelo */}
+      <path d="M15,19 Q15,10 24,10 Q33,10 33,19 Q30,14 24,14 Q18,14 15,19 Z" fill={c.hair} />
+    </svg>
+  );
+}
+
+function TestimonioCard({ testimonio, index }: { testimonio: Testimonio; index: number }) {
   return (
     <div className="bg-white border border-green-100 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 relative flex flex-col h-[350px]">
       <Quote className="h-8 w-8 text-green-500 absolute top-4 left-4 opacity-20" />
@@ -205,12 +225,7 @@ function TestimonioCard({ testimonio }: { testimonio: Testimonio }) {
           {testimonio.testimonial}
         </p>
         <div className="flex items-center mt-6">
-          <img
-            src={imgSrc}
-            className="h-12 w-12 rounded-full object-cover ring-2 ring-green-200"
-            onError={() => setImgSrc('/profilepicture.png')}
-            alt={testimonio.name}
-          />
+          <AvatarSVG index={index} />
           <div className="ml-4">
             <h4 className="font-rem font-semibold text-gray-900">{testimonio.name}</h4>
             <p className="text-sm text-green-600">{testimonio.country}</p>
@@ -299,11 +314,6 @@ function HomePage() {
         <CarouselFadeExample />
       </section>
 
-      {/* Wave into services */}
-      <div className="bg-white -mt-1">
-        <WaveDivider fill="#f0fdf4" />
-      </div>
-
       {/* ── Servicios ── */}
       <section id="servicios" className="relative py-20 services-blob-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -362,6 +372,11 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Wave out of services */}
+      <div className="bg-white">
+        <WaveDivider fill="#ffffff" />
+      </div>
+
       {/* ── Ciatalgia Banner ── */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -375,8 +390,37 @@ function HomePage() {
                 <div className="absolute -top-10 -right-10 w-52 h-52 bg-white/10 rounded-full pointer-events-none" />
                 <div className="absolute -bottom-14 -left-8 w-40 h-40 bg-white/10 rounded-full pointer-events-none" />
 
-                <div className="bg-white/20 rounded-2xl p-5 flex-shrink-0">
-                  <Zap className="h-12 w-12 text-white icon-float" />
+                {/* Mini-preview de la página de ciatalgia */}
+                <div className="flex-shrink-0 w-36 h-44 rounded-2xl overflow-hidden shadow-xl ring-2 ring-white/20 transition-transform duration-300 group-hover:scale-105">
+                  <div className="w-full h-full flex flex-col items-center justify-between px-3 py-3"
+                    style={{ background: 'linear-gradient(160deg, #3b1f0e 0%, #2a1508 60%, #1e0f05 100%)' }}>
+                    {/* Logo */}
+                    <div className="flex flex-col items-center gap-1 pt-1">
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-400 to-green-600 shadow-md flex items-center justify-center">
+                        <div className="w-3 h-3 rounded-full bg-white/30" />
+                      </div>
+                      <div className="flex gap-0.5">
+                        {[...Array(3)].map((_, i) => (
+                          <div key={i} className="h-0.5 rounded-full bg-amber-300/60" style={{ width: i === 1 ? 14 : 8 }} />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Texto simulado */}
+                    <div className="flex flex-col items-center gap-1.5 w-full">
+                      <div className="h-1 w-20 rounded-full bg-amber-200/50" />
+                      <div className="h-2.5 w-28 rounded bg-white/90" />
+                      <div className="h-2.5 w-24 rounded bg-white/80" />
+                      <div className="h-1 w-20 rounded-full bg-white/40" />
+                      <div className="h-1 w-16 rounded-full bg-white/30" />
+                    </div>
+                    {/* Botón CTA simulado */}
+                    <div className="w-full pb-1">
+                      <div className="w-full h-5 rounded-md flex items-center justify-center"
+                        style={{ background: 'linear-gradient(90deg, #d4a017, #e8b830)' }}>
+                        <div className="h-1 w-16 rounded-full bg-white/70" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex-grow text-center md:text-left">
@@ -472,8 +516,8 @@ function HomePage() {
               Historias reales de transformación y sanación.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
-              {testimonios.map(testimonio => (
-                <TestimonioCard key={testimonio.id} testimonio={testimonio} />
+              {testimonios.map((testimonio, i) => (
+                <TestimonioCard key={testimonio.id} testimonio={testimonio} index={i} />
               ))}
             </div>
           </div>
