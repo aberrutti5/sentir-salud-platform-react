@@ -42,6 +42,13 @@ function WaveDivider({ fill = '#f0fdf4' }: { fill?: string }) {
 function CarouselFadeExample() {
   const [slides, setSlides] = useState<CarouselSlide[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
 
   const fallbackSlides: CarouselSlide[] = [
     {
@@ -130,10 +137,12 @@ function CarouselFadeExample() {
     </div>
   );
 
+  const visibleSlides = isMobile ? slides.slice(1) : slides;
+
   return (
     <div className="relative w-full">
       <Carousel fade className="w-full">
-        {slides.map((slide, index) => (
+        {visibleSlides.map((slide, index) => (
           <Carousel.Item key={slide.id} className="lg:h-auto">
             {slide.link ? (
               slide.link.startsWith('/') ? (
@@ -360,7 +369,7 @@ function HomePage() {
             ref={ciatalgiaRef}
             className={`section-hidden ${ciatalgiaInView ? 'section-visible' : ''}`}
           >
-            <Link to="/ciatalgia" className="no-underline block group">
+            <a href="https://www.sentirsalud.bio/ciatalgia" target="_blank" rel="noopener noreferrer" className="no-underline block group">
               <div className="relative overflow-hidden bg-gradient-to-r from-green-600 to-green-500 rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center gap-8 shadow-lg transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
                 {/* Decorative circles */}
                 <div className="absolute -top-10 -right-10 w-52 h-52 bg-white/10 rounded-full pointer-events-none" />
@@ -390,7 +399,7 @@ function HomePage() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
