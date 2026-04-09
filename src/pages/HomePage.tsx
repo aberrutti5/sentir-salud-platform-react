@@ -142,8 +142,8 @@ function CarouselFadeExample() {
                   {/* First slide: image already has text — skip caption */}
                   {index !== 0 && (
                     <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-                      <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 drop-shadow-lg">{slide.title}</h3>
-                      <p className="text-sm md:text-base lg:text-lg drop-shadow-md">{slide.subtitle}</p>
+                      <h3 className="font-rem text-xl md:text-2xl lg:text-3xl font-bold mb-2 drop-shadow-lg">{slide.title}</h3>
+                      <p className="font-rem text-sm md:text-base lg:text-lg drop-shadow-md">{slide.subtitle}</p>
                     </Carousel.Caption>
                   )}
                 </Link>
@@ -152,8 +152,8 @@ function CarouselFadeExample() {
                   <SlideImage slide={slide} />
                   {index !== 0 && (
                     <Carousel.Caption className="relative z-[2] bottom-0 pb-4 md:pb-8">
-                      <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 drop-shadow-lg">{slide.title}</h3>
-                      <p className="text-sm md:text-base lg:text-lg drop-shadow-md">{slide.subtitle}</p>
+                      <h3 className="font-rem text-xl md:text-2xl lg:text-3xl font-bold mb-2 drop-shadow-lg">{slide.title}</h3>
+                      <p className="font-rem text-sm md:text-base lg:text-lg drop-shadow-md">{slide.subtitle}</p>
                     </Carousel.Caption>
                   )}
                 </a>
@@ -203,7 +203,7 @@ function TestimonioCard({ testimonio }: { testimonio: Testimonio }) {
             alt={testimonio.name}
           />
           <div className="ml-4">
-            <h4 className="font-semibold text-gray-900">{testimonio.name}</h4>
+            <h4 className="font-rem font-semibold text-gray-900">{testimonio.name}</h4>
             <p className="text-sm text-green-600">{testimonio.country}</p>
           </div>
         </div>
@@ -273,11 +273,11 @@ function HomePage() {
               </Link>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#inicio"      className="text-gray-600 hover:text-green-600 transition-colors no-underline">Inicio</a>
-              <a href="#servicios"   className="text-gray-600 hover:text-green-600 transition-colors no-underline">Servicios</a>
-              <a href="#cursos"      className="text-gray-600 hover:text-green-600 transition-colors no-underline">Cursos</a>
-              <a href="#testimonios" className="text-gray-600 hover:text-green-600 transition-colors no-underline">Testimonios</a>
-              <a href="#contacto"    className="text-gray-600 hover:text-green-600 transition-colors no-underline">Contacto</a>
+              <a href="#inicio"      className="font-rem text-gray-600 hover:text-green-600 transition-colors no-underline">Inicio</a>
+              <a href="#servicios"   className="font-rem text-gray-600 hover:text-green-600 transition-colors no-underline">Servicios</a>
+              <a href="#cursos"      className="font-rem text-gray-600 hover:text-green-600 transition-colors no-underline">Cursos</a>
+              <a href="#testimonios" className="font-rem text-gray-600 hover:text-green-600 transition-colors no-underline">Testimonios</a>
+              <a href="#contacto"    className="font-rem text-gray-600 hover:text-green-600 transition-colors no-underline">Contacto</a>
               <Link
                 to="/login"
                 className="bg-green-600 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 transition-colors no-underline"
@@ -300,19 +300,14 @@ function HomePage() {
       </div>
 
       {/* ── Servicios ── */}
-      <section id="servicios" className="relative py-20 overflow-hidden bg-gradient-to-br from-white via-green-50 to-emerald-50">
-        {/* Blobs decorativos animados */}
-        <div className="blob blob-1 w-[480px] h-[480px] bg-green-200 opacity-30 -top-32 -right-32" />
-        <div className="blob blob-2 w-[380px] h-[380px] bg-emerald-200 opacity-25 -bottom-28 -left-20" />
-        <div className="blob blob-3 w-[300px] h-[300px] bg-teal-100 opacity-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-
+      <section id="servicios" className="relative py-20 services-blob-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div
             ref={servicesRef}
             className={`section-hidden ${servicesInView ? 'section-visible' : ''}`}
           >
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">Nuestros Servicios</h2>
-            <p className="text-center text-gray-500 mb-12 max-w-xl mx-auto">
+            <h2 className="font-rem text-3xl font-bold text-center text-gray-900 mb-4">Nuestros Servicios</h2>
+            <p className="font-rem text-center text-gray-500 mb-12 max-w-xl mx-auto">
               Un abordaje integral de tu bienestar, uniendo mente, cuerpo y emoción.
             </p>
 
@@ -324,7 +319,7 @@ function HomePage() {
                   <div className="bg-green-100 rounded-xl p-3 mb-4 group-hover:bg-green-600 transition-colors duration-300">
                     <Brain className="h-8 w-8 text-green-600 group-hover:text-white transition-colors duration-300 icon-float" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-green-700 transition-colors duration-300">
+                  <h3 className="font-rem text-xl font-semibold mb-2 text-gray-900 group-hover:text-green-700 transition-colors duration-300">
                     Biodescodificación
                   </h3>
                   <p className="text-gray-500 text-sm leading-relaxed group-hover:hidden">
@@ -341,7 +336,7 @@ function HomePage() {
                 <div className="bg-green-100 rounded-xl p-3 mb-4 group-hover:bg-green-600 transition-colors duration-300 w-fit">
                   <Heart className="h-8 w-8 text-green-600 group-hover:text-white transition-colors duration-300 icon-float" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900">Terapias Holísticas</h3>
+                <h3 className="font-rem text-xl font-semibold mb-2 text-gray-900">Terapias Holísticas</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
                   Integración de diferentes técnicas para un abordaje completo de tu bienestar.
                 </p>
@@ -352,7 +347,7 @@ function HomePage() {
                 <div className="bg-green-100 rounded-xl p-3 mb-4 group-hover:bg-green-600 transition-colors duration-300 w-fit">
                   <BookOpen className="h-8 w-8 text-green-600 group-hover:text-white transition-colors duration-300 icon-float" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900">Formación Profesional</h3>
+                <h3 className="font-rem text-xl font-semibold mb-2 text-gray-900">Formación Profesional</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
                   Programas certificados para convertirte en un terapeuta holístico profesional.
                 </p>
@@ -380,8 +375,8 @@ function HomePage() {
                 </div>
 
                 <div className="flex-grow text-center md:text-left">
-                  <span className="text-green-200 text-sm font-semibold uppercase tracking-widest mb-2 block">Artículo destacado</span>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  <span className="font-rem text-green-200 text-sm font-semibold uppercase tracking-widest mb-2 block">Artículo destacado</span>
+                  <h2 className="font-rem text-2xl md:text-3xl font-bold text-white mb-3">
                     Ciatalgia y Biodescodificación
                   </h2>
                   <p className="text-green-100 text-base leading-relaxed max-w-xl">
@@ -416,8 +411,8 @@ function HomePage() {
             ref={cursosRef}
             className={`section-hidden ${cursosInView ? 'section-visible' : ''}`}
           >
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">Próximos Cursos</h2>
-            <p className="text-center text-gray-500 mb-12 max-w-xl mx-auto">
+            <h2 className="font-rem text-3xl font-bold text-center text-gray-900 mb-4">Próximos Cursos</h2>
+            <p className="font-rem text-center text-gray-500 mb-12 max-w-xl mx-auto">
               Fórmate con los mejores programas en Biodescodificación y terapias holísticas.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
@@ -430,7 +425,7 @@ function HomePage() {
                   <div className="bg-green-100 rounded-xl p-3 mb-5 w-fit group-hover:bg-green-600 transition-colors duration-300">
                     <Calendar className="h-7 w-7 text-green-600 group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{course.name}</h3>
+                  <h3 className="font-rem text-xl font-semibold mb-3 text-gray-900">{course.name}</h3>
                   <p className="text-gray-500 mb-5 text-sm leading-relaxed">{course.desc}</p>
                   <div className="flex items-center text-sm text-green-600 font-medium">
                     <Users className="h-4 w-4 mr-2" />
@@ -455,10 +450,10 @@ function HomePage() {
             ref={testimoniosRef}
             className={`section-hidden ${testimoniosInView ? 'section-visible' : ''}`}
           >
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            <h2 className="font-rem text-3xl font-bold text-center text-gray-900 mb-4">
               Testimonios de Nuestros Alumnos
             </h2>
-            <p className="text-center text-gray-500 mb-12 max-w-xl mx-auto">
+            <p className="font-rem text-center text-gray-500 mb-12 max-w-xl mx-auto">
               Historias reales de transformación y sanación.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
@@ -477,7 +472,7 @@ function HomePage() {
             ref={contactoRef}
             className={`section-hidden ${contactoInView ? 'section-visible' : ''}`}
           >
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Contáctanos</h2>
+            <h2 className="font-rem text-3xl font-bold text-center text-gray-900 mb-12">Contáctanos</h2>
             <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16">
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 rounded-xl p-3">
