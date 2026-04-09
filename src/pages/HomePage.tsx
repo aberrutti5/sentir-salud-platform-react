@@ -300,8 +300,13 @@ function HomePage() {
       </div>
 
       {/* ── Servicios ── */}
-      <section id="servicios" className="py-20 bg-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="servicios" className="relative py-20 overflow-hidden bg-gradient-to-br from-white via-green-50 to-emerald-50">
+        {/* Blobs decorativos animados */}
+        <div className="blob blob-1 w-[480px] h-[480px] bg-green-200 opacity-30 -top-32 -right-32" />
+        <div className="blob blob-2 w-[380px] h-[380px] bg-emerald-200 opacity-25 -bottom-28 -left-20" />
+        <div className="blob blob-3 w-[300px] h-[300px] bg-teal-100 opacity-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div
             ref={servicesRef}
             className={`section-hidden ${servicesInView ? 'section-visible' : ''}`}
@@ -478,7 +483,7 @@ function HomePage() {
                 <div className="bg-green-100 rounded-xl p-3">
                   <Mail className="h-6 w-6 text-green-600" />
                 </div>
-                <span className="text-gray-600">administracion@sentirsaludcapacitacion.com</span>
+                <span className="text-gray-600">administracion@sentirsalud.bio</span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 rounded-xl p-3">
