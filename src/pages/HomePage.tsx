@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Brain, Heart, Calendar, Users, BookOpen, Mail, Phone, MapPin, Quote, Zap } from 'lucide-react';
 import Carousel from 'react-bootstrap/Carousel';
 import { supabase, CarouselSlide } from '../lib/supabase';
@@ -214,8 +214,6 @@ function TestimonioCard({ testimonio }: { testimonio: Testimonio }) {
 
 // ── HomePage ──────────────────────────────────────────────────────────────────
 function HomePage() {
-  const navigate = useNavigate();
-
   const { ref: servicesRef,    inView: servicesInView    } = useInView();
   const { ref: ciatalgiaRef,   inView: ciatalgiaInView   } = useInView();
   const { ref: cursosRef,      inView: cursosInView      } = useInView();
@@ -248,16 +246,14 @@ function HomePage() {
 
   const courses = [
     {
-      id: 'bio2024',
-      name: 'Curso de Biodescodificación 2024',
-      desc: 'Aprende las bases de la Biodescodificación y cómo aplicarla en tu vida diaria.',
-      sub: 'Inicio: Marzo 2024'
+      name: 'Formación en Biodescodificación 2026',
+      desc: 'Aprende las bases de la Biodescodificación y cómo aplicarla en tu vida y en la de otros. Un recorrido profundo por el origen emocional de los síntomas.',
+      sub: 'Consultar fechas de inicio'
     },
     {
-      id: 'maestriabio2023',
       name: 'Maestría en Biodescodificación',
-      desc: 'Formación avanzada para convertirte en un profesional de la Biodescodificación.',
-      sub: 'Inicio: Abril 2024'
+      desc: 'Formación avanzada para convertirte en un profesional certificado de la Biodescodificación. Ideal para quienes ya tienen bases en el enfoque bioemocional.',
+      sub: 'Consultar fechas de inicio'
     }
   ];
 
@@ -417,21 +413,31 @@ function HomePage() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
               {courses.map(course => (
-                <div
-                  key={course.id}
-                  onClick={() => navigate(`/courses/${course.id}`)}
-                  className="bg-white p-8 rounded-2xl shadow-sm cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-green-300/40 group"
+                <a
+                  key={course.name}
+                  href={`https://wa.me/59896611764?text=Hola!%20Me%20interesa%20el%20curso%20${encodeURIComponent(course.name)}%2C%20%C2%BFme%20pod%C3%A9s%20dar%20m%C3%A1s%20informaci%C3%B3n%3F`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="no-underline bg-white p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-green-300/40 group block"
                 >
                   <div className="bg-green-100 rounded-xl p-3 mb-5 w-fit group-hover:bg-green-600 transition-colors duration-300">
                     <Calendar className="h-7 w-7 text-green-600 group-hover:text-white transition-colors duration-300" />
                   </div>
                   <h3 className="font-rem text-xl font-semibold mb-3 text-gray-900">{course.name}</h3>
                   <p className="text-gray-500 mb-5 text-sm leading-relaxed">{course.desc}</p>
-                  <div className="flex items-center text-sm text-green-600 font-medium">
-                    <Users className="h-4 w-4 mr-2" />
-                    <span>{course.sub}</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-sm text-green-600 font-medium">
+                      <Users className="h-4 w-4 mr-2" />
+                      <span>{course.sub}</span>
+                    </div>
+                    <span className="text-sm font-semibold text-green-600 group-hover:text-green-700 flex items-center gap-1">
+                      Consultar por WhatsApp
+                      <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
