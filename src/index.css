@@ -48,6 +48,24 @@
   animation: float 3.5s ease-in-out infinite;
 }
 
+/* ── Blob background animation ── */
+@keyframes blobDrift {
+  0%, 100% { transform: translate(0,   0)    scale(1);    }
+  33%       { transform: translate(24px, -18px) scale(1.06); }
+  66%       { transform: translate(-14px, 12px) scale(0.96); }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  pointer-events: none;
+  will-change: transform;
+}
+.blob-1 { animation: blobDrift 14s ease-in-out infinite; }
+.blob-2 { animation: blobDrift 10s ease-in-out infinite 3s; }
+.blob-3 { animation: blobDrift 18s ease-in-out infinite 6s; }
+
 /* ── Carousel caption fade-up ── */
 .carousel-caption h3,
 .carousel-caption p {
