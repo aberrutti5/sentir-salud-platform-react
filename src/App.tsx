@@ -14,6 +14,7 @@ import BioSessionsPage from './pages/BioSessionsPage';
 import EbookLandingPage from './pages/ebookLandingPage';
 import GraciasEbookPage from './pages/GraciasEbookPage';
 import OctubreSeminarioPage from './pages/OctubreSeminarioPage';
+import CiatalgiaPage from './pages/CiatalgiaPage';
 import WhatsAppButton from './components/WhatsAppButton';
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/ebook" element={<EbookLandingPage />} />
         <Route path="/ebook/gracias" element={<GraciasEbookPage />} />
         <Route path="/octubreseminario" element={<OctubreSeminarioPage />} />
+        <Route path="/ciatalgia" element={<CiatalgiaPage />} />
       </Routes>
       <WhatsAppButton 
         phoneNumber="59896611764" 
