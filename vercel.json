@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/((?!ciatalgia).*)", "destination": "/" }
+    { "source": "/((?!ciatalgia|api).*)", "destination": "/" }
   ]
 } 
