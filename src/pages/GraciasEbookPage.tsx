@@ -9,11 +9,16 @@ export default function GraciasEbookPage() {
     setError(null);
     try {
       const res = await fetch('/api/download-ebook');
-      if (!res.ok) throw new Error('Error al obtener el enlace');
-      const { url } = await res.json();
-      window.open(url, '_blank', 'noopener,noreferrer');
+      if (!res.ok) throw new Error('Error al descargar');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'El-cancer-no-es-tu-enemigo-Sentir-Salud.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
     } catch {
-      setError('No se pudo generar el enlace. Intentá de nuevo o contáctanos.');
+      setError('No se pudo descargar. Intentá de nuevo o contáctanos.');
     } finally {
       setLoading(false);
     }
